@@ -1,0 +1,54 @@
+{
+  "name": "eslump",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Simon Lydell",
+  "description": "CLI tool for fuzz testing JavaScript parsers and suchlike programs.",
+  "keywords": [
+    "ECMAScript",
+    "JavaScript",
+    "es",
+    "js",
+    "random",
+    "fuzz",
+    "fuzzer",
+    "esfuzz",
+    "shift-fuzzer"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "eslump": "cli.js"
+  },
+  "files": [
+    "cli.js",
+    "index.js"
+  ],
+  "repository": "lydell/eslump",
+  "scripts": {
+    "test": "eslint .",
+    "test-fix": "npm run test -- --fix"
+  },
+  "dependencies": {
+    "babel-code-frame": "^6.22.0",
+    "mkdirp": "^0.5.1",
+    "optionator": "^0.8.2",
+    "shift-codegen": "^5.0.2",
+    "shift-fuzzer": "^1.0.1"
+  },
+  "devDependencies": {
+    "acorn": "^4.0.4",
+    "babel-generator": "^6.22.0",
+    "babylon": "^6.15.0",
+    "escodegen": "^1.8.1",
+    "eslint": "^3.14.1",
+    "eslint-plugin-prettier": "^2.0.0",
+    "espree": "^3.3.2",
+    "esprima": "^3.1.3",
+    "flow-parser": "^0.38.0",
+    "prettier": "0.13.1",
+    "random-int": "^1.0.0",
+    "random-item": "^1.0.0",
+    "shift-parser": "^5.0.2",
+    "unexpected": "^10.23.0"
+  }
+}
