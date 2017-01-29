@@ -4,6 +4,7 @@ module.exports = (generate, generateRandomOptions) => (
   { code, sourceType, reproductionData = {} }
 ) => {
   const { options = generateRandomOptions({ sourceType }) } = reproductionData;
+  const generateData = { sourceType, options };
   const artifacts = {};
 
   function makeErrorData(error) {
@@ -12,7 +13,7 @@ module.exports = (generate, generateRandomOptions) => (
 
   let generatedCode1;
   try {
-    generatedCode1 = generate(code, options);
+    generatedCode1 = generate(code, generateData);
   } catch (error) {
     // Ignore parse errors: We’re testing the printer here, not the parsers.
     if (
@@ -27,7 +28,7 @@ module.exports = (generate, generateRandomOptions) => (
 
   let generatedCode2;
   try {
-    generatedCode2 = generate(generatedCode1, options);
+    generatedCode2 = generate(generatedCode1, generateData);
   } catch (error) {
     return makeErrorData(error);
   }
