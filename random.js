@@ -1,5 +1,8 @@
+const arrayShuffle = require("array-shuffle");
 const randomInt = require("random-int");
 const randomItem = require("random-item");
+
+const letters = "abcdefghijklmnopqrstuvxyz".split("");
 
 // Source: https://github.com/estools/esfuzz/blob/3805af61eb6a6836dad11f5cd21665f242ae6e1e/src/random.coffee#L6-L29
 const whitespace = [
@@ -40,15 +43,50 @@ const lineTerminators = [
   "\u2029" // PARAGRAPH SEPARATOR
 ];
 
+function randomArray(length, randomItem) {
+  return [...Array(length)].map(() => randomItem());
+}
+
 function randomString(length, randomChar) {
-  return [...Array(length)].map(() => randomChar()).join("");
+  return randomArray(length, randomChar).join("");
+}
+
+function randomLineTerminator() {
+  return randomItem(lineTerminators);
+}
+
+function randomWhitespace() {
+  return randomItem(whitespace);
+}
+
+function randomSingleLineComment() {
+  const length = randomInt(20);
+  const contents = arrayShuffle(whitespace.concat(letters))
+    .slice(0, length)
+    .join("");
+  const spaces = randomString(2, randomWhitespace);
+  return `${spaces}//${contents}`;
+}
+
+function randomMultiLineComment() {
+  const length = randomInt(20);
+  // Don’t include line terminators in case the comment ends up inside a string.
+  const contents = arrayShuffle(whitespace.concat(letters))
+    .slice(0, length)
+    .join("");
+  const spacesBefore = randomString(2, randomWhitespace);
+  const spacesAfter = randomString(2, randomWhitespace);
+  return `${spacesBefore}/*${contents}*/${spacesAfter}`;
 }
 
 module.exports = {
   bool: () => Math.random() < 0.5,
   int: randomInt,
   item: randomItem,
+  array: randomArray,
   string: randomString,
-  lineTerminator: () => randomItem(lineTerminators),
-  whitespace: () => randomItem(whitespace)
+  lineTerminator: randomLineTerminator,
+  whitespace: randomWhitespace,
+  singleLineComment: randomSingleLineComment,
+  multiLineComment: randomMultiLineComment
 };

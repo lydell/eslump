@@ -1,7 +1,7 @@
 const escodegen = require("escodegen");
 const esprima = require("esprima");
 const testGenerator = require("./generator");
-const random = require("./random");
+const random = require("../random");
 
 function generate(code, { sourceType, options }) {
   const ast = esprima.parse(code, { sourceType, comments: true });

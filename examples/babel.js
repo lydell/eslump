@@ -1,7 +1,7 @@
 const babelGenerate = require("babel-generator");
 const babylon = require("babylon");
 const testGenerator = require("./generator");
-const random = require("./random");
+const random = require("../random");
 
 function generate(code, { sourceType, options }) {
   const ast = babylon.parse(code, { sourceType });

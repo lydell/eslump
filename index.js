@@ -5,8 +5,7 @@ const fs = require("fs");
 const mkdirp = require("mkdirp");
 const optionator = require("optionator");
 const path = require("path");
-const shiftCodegen = require("shift-codegen");
-const shiftFuzzer = require("shift-fuzzer");
+const generateRandomJS = require("./randomjs");
 
 const program = optionator({
   prepend: [
@@ -62,6 +61,11 @@ const program = optionator({
       enum: ["module", "script"],
       default: "module",
       description: "Parsing mode."
+    },
+    {
+      option: "comments",
+      type: "Boolean",
+      description: "Insert random comments into the random JavaScript."
     },
     {
       option: "reproduce",
@@ -257,22 +261,6 @@ function run(input) {
   }
 
   return { loop };
-}
-
-function generateRandomJS(options = {}) {
-  const fuzzer = options.sourceType === "script"
-    ? shiftFuzzer.fuzzScript
-    : shiftFuzzer.fuzzModule;
-
-  const generator = Math.random() < 0.5
-    ? shiftCodegen.MinimalCodeGen
-    : shiftCodegen.FormattedCodeGen;
-
-  const randomAST = fuzzer(new shiftFuzzer.FuzzerState({
-    maxDepth: options.maxDepth
-  }));
-
-  return shiftCodegen.default(randomAST, new generator());
 }
 
 function writeFiles(outputDir, code, result) {
