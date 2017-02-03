@@ -57,10 +57,6 @@ function randomWhitespace() {
   return randomItem(whitespace);
 }
 
-function randomLineTerminatorOrWhitespace() {
-  return randomItem(lineTerminators.concat(whitespace));
-}
-
 function randomSingleLineComment() {
   const chars = whitespace.concat(letters);
   const contents = randomString(randomInt(20), () => randomItem(chars));
@@ -77,15 +73,13 @@ function randomMultiLineComment({ allowNewlines = false } = {}) {
   return `/*${contents}*/`;
 }
 
-const randomInsignificantJSChoices = [
-  randomWhitespace,
-  () => randomMultiLineComment({ allowNewlines: false })
-];
+const randomInsignificantJSChoices = [randomWhitespace, randomMultiLineComment];
 
 const randomInsignificantJSChoicesWithNewlines = [
-  randomLineTerminatorOrWhitespace,
+  randomLineTerminator,
+  randomWhitespace,
   randomSingleLineComment,
-  randomMultiLineComment
+  () => randomMultiLineComment({ allowNewlines: true })
 ];
 
 function randomInsignificantJS(length, { allowNewlines = false } = {}) {
@@ -104,7 +98,6 @@ module.exports = {
   string: randomString,
   lineTerminator: randomLineTerminator,
   whitespace: randomWhitespace,
-  lineTerminatorOrWhitespace: randomLineTerminatorOrWhitespace,
   singleLineComment: randomSingleLineComment,
   multiLineComment: randomMultiLineComment,
   insignificantJS: randomInsignificantJS

@@ -4,7 +4,10 @@ const shiftFuzzer = require("shift-fuzzer");
 const shiftReducer = require("shift-reducer");
 const random = require("./random");
 
+// Hack: `tokenStrings` consisting of this invalid sequence of characters
+// signify a whitespace token that cannot contain newlines.
 const NO_NEWLINE = "}[)";
+
 const WHITESPACE = /^\s+$/;
 
 class CustomTokenStream extends TokenStream {
