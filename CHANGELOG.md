@@ -1,3 +1,11 @@
+### Version 1.2.0 (2017-02-03)
+
+- Improved: The `--comments` option:
+  - It is now much more robust.
+  - `/**/` comments can now contain newlines.
+  - Any sequence of whitespace is now randomized and possibly filled with
+    comments.
+
 ### Version 1.1.1 (2017-01-30)
 
 - Fixed: Added missing files to the npm package.
