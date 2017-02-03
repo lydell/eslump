@@ -5,7 +5,7 @@ const fs = require("fs");
 const mkdirp = require("mkdirp");
 const optionator = require("optionator");
 const path = require("path");
-const generateRandomJS = require("./randomjs");
+const generateRandomJS = require("./codegen");
 
 const program = optionator({
   prepend: [

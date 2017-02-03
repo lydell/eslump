@@ -21,9 +21,9 @@
   },
   "files": [
     "cli.js",
+    "codegen.js",
     "index.js",
-    "random.js",
-    "randomjs.js"
+    "random.js"
   ],
   "repository": "lydell/eslump",
   "scripts": {
@@ -31,14 +31,14 @@
     "test-fix": "npm run test -- --fix"
   },
   "dependencies": {
-    "array-shuffle": "^1.0.1",
     "babel-code-frame": "^6.22.0",
     "mkdirp": "^0.5.1",
     "optionator": "^0.8.2",
     "random-int": "^1.0.0",
     "random-item": "^1.0.0",
     "shift-codegen": "^5.0.2",
-    "shift-fuzzer": "^1.0.1"
+    "shift-fuzzer": "^1.0.1",
+    "shift-reducer": "^4.0.0"
   },
   "devDependencies": {
     "acorn": "^4.0.4",

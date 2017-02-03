@@ -1,4 +1,3 @@
-const arrayShuffle = require("array-shuffle");
 const randomInt = require("random-int");
 const randomItem = require("random-item");
 
@@ -14,7 +13,8 @@ const whitespace = [
   // Unicode category Zs (Separator, space)
   "\x20", // SPACE
   "\xA0", // NO-BREAK SPACE
-  "\u1680", // OGHAM SPACE MARK
+  // Disabled since they make inspecting the random JS painful:
+  // "\u1680", // OGHAM SPACE MARK
   "\u180E", // MONGOLIAN VOWEL SEPARATOR
   "\u2000", // EN QUAD
   "\u2001", // EM QUAD
@@ -32,15 +32,13 @@ const whitespace = [
   "\u3000" // IDEOGRAPHIC SPACE
 ];
 
-// Source: https://github.com/estools/esfuzz/blob/3805af61eb6a6836dad11f5cd21665f242ae6e1e/src/random.coffee#L33-L39
 const lineTerminators = [
-  // ES5 7.3
-  "\x0A", // Line Feed (\n)
-  "\x0D", // Carriage Return (\r)
-  // Unicode category Zl (Separator, line)
-  "\u2028", // LINE SEPARATOR
-  // Unicode category Zp (Separator, paragraph)
-  "\u2029" // PARAGRAPH SEPARATOR
+  "\n", // Line Feed
+  "\r", // Carriage Return
+  "\r\n" // Line Feed + Carriage Return
+  // Disabled since they make inspecting the random JS painful:
+  // "\u2028", // LINE SEPARATOR
+  // "\u2029" // PARAGRAPH SEPARATOR
 ];
 
 function randomArray(length, randomItem) {
@@ -59,24 +57,43 @@ function randomWhitespace() {
   return randomItem(whitespace);
 }
 
-function randomSingleLineComment() {
-  const length = randomInt(20);
-  const contents = arrayShuffle(whitespace.concat(letters))
-    .slice(0, length)
-    .join("");
-  const spaces = randomString(2, randomWhitespace);
-  return `${spaces}//${contents}`;
+function randomLineTerminatorOrWhitespace() {
+  return randomItem(lineTerminators.concat(whitespace));
 }
 
-function randomMultiLineComment() {
-  const length = randomInt(20);
-  // Don’t include line terminators in case the comment ends up inside a string.
-  const contents = arrayShuffle(whitespace.concat(letters))
-    .slice(0, length)
-    .join("");
-  const spacesBefore = randomString(2, randomWhitespace);
-  const spacesAfter = randomString(2, randomWhitespace);
-  return `${spacesBefore}/*${contents}*/${spacesAfter}`;
+function randomSingleLineComment() {
+  const chars = whitespace.concat(letters);
+  const contents = randomString(randomInt(20), () => randomItem(chars));
+  const newline = randomLineTerminator();
+  return `//${contents}${newline}`;
+}
+
+function randomMultiLineComment({ allowNewlines = false } = {}) {
+  const chars = whitespace.concat(
+    allowNewlines ? lineTerminators : [],
+    letters
+  );
+  const contents = randomString(randomInt(20), () => randomItem(chars));
+  return `/*${contents}*/`;
+}
+
+const randomInsignificantJSChoices = [
+  randomWhitespace,
+  () => randomMultiLineComment({ allowNewlines: false })
+];
+
+const randomInsignificantJSChoicesWithNewlines = [
+  randomLineTerminatorOrWhitespace,
+  randomSingleLineComment,
+  randomMultiLineComment
+];
+
+function randomInsignificantJS(length, { allowNewlines = false } = {}) {
+  const choices = allowNewlines
+    ? randomInsignificantJSChoicesWithNewlines
+    : randomInsignificantJSChoices;
+
+  return randomString(length, () => randomItem(choices)());
 }
 
 module.exports = {
@@ -87,6 +104,8 @@ module.exports = {
   string: randomString,
   lineTerminator: randomLineTerminator,
   whitespace: randomWhitespace,
+  lineTerminatorOrWhitespace: randomLineTerminatorOrWhitespace,
   singleLineComment: randomSingleLineComment,
-  multiLineComment: randomMultiLineComment
+  multiLineComment: randomMultiLineComment,
+  insignificantJS: randomInsignificantJS
 };
