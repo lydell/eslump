@@ -7,15 +7,15 @@ const letters = "abcdefghijklmnopqrstuvxyz".split("");
 const whitespace = [
   // ES5 7.2
   "\x09", // Horizontal Tab (\t)
-  "\x0B", // Vertical Tab (\v)
-  "\x0C", // Form Feed (\f)
-  "\uFEFF", // Byte Order Mark
+  "\x0b", // Vertical Tab (\v)
+  "\x0c", // Form Feed (\f)
+  "\ufeff", // Byte Order Mark
   // Unicode category Zs (Separator, space)
   "\x20", // SPACE
-  "\xA0", // NO-BREAK SPACE
+  "\xa0", // NO-BREAK SPACE
   // Disabled since they make inspecting the random JS painful:
   // "\u1680", // OGHAM SPACE MARK
-  "\u180E", // MONGOLIAN VOWEL SEPARATOR
+  "\u180e", // MONGOLIAN VOWEL SEPARATOR
   "\u2000", // EN QUAD
   "\u2001", // EM QUAD
   "\u2002", // EN SPACE
@@ -26,9 +26,9 @@ const whitespace = [
   "\u2007", // FIGURE SPACE
   "\u2008", // PUNCTUATION SPACE
   "\u2009", // THIN SPACE
-  "\u200A", // HAIR SPACE
-  "\u202F", // NARROW NO-BREAK SPACE
-  "\u205F", // MEDIUM MATHEMATICAL SPACE
+  "\u200a", // HAIR SPACE
+  "\u202f", // NARROW NO-BREAK SPACE
+  "\u205f", // MEDIUM MATHEMATICAL SPACE
   "\u3000" // IDEOGRAPHIC SPACE
 ];
 

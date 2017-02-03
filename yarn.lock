@@ -8,13 +8,17 @@ acorn-jsx@^3.0.0:
   dependencies:
     acorn "^3.0.4"
 
+acorn@4.0.4, acorn@^4.0.1:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.4.tgz#17a8d6a7a6c4ef538b814ec9abac2779293bf30a"
+
 acorn@^3.0.4:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
 
-acorn@^4.0.1, acorn@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.4.tgz#17a8d6a7a6c4ef538b814ec9abac2779293bf30a"
+acorn@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.8.tgz#f41e52020ce78118a3c68ed0e9215eb8fc68b5b1"
 
 ajv-keywords@^1.0.0:
   version "1.5.1"
@@ -431,11 +435,18 @@ eslint@^3.14.1:
     text-table "~0.2.0"
     user-home "^2.0.0"
 
-espree@^3.3.1, espree@^3.3.2:
+espree@^3.3.1:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/espree/-/espree-3.3.2.tgz#dbf3fadeb4ecb4d4778303e50103b3d36c88b89c"
   dependencies:
     acorn "^4.0.1"
+    acorn-jsx "^3.0.0"
+
+espree@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/espree/-/espree-3.4.0.tgz#41656fa5628e042878025ef467e78f125cb86e1d"
+  dependencies:
+    acorn "4.0.4"
     acorn-jsx "^3.0.0"
 
 esprima@^2.6.0, esprima@^2.7.1:
@@ -868,9 +879,9 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
 
-prettier@^0.14.1:
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-0.14.1.tgz#8cc58ad711c7d25b0e7cc23bea7b531b907f6c1a"
+prettier@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-0.15.0.tgz#732f200c66bad78ad54635c111c01eab5cb8c4ce"
   dependencies:
     ast-types "0.9.4"
     babel-code-frame "6.22.0"

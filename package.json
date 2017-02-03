@@ -41,16 +41,16 @@
     "shift-reducer": "^4.0.0"
   },
   "devDependencies": {
-    "acorn": "^4.0.4",
+    "acorn": "^4.0.8",
     "babel-generator": "^6.22.0",
     "babylon": "^6.15.0",
     "escodegen": "^1.8.1",
     "eslint": "^3.14.1",
     "eslint-plugin-prettier": "^2.0.0",
-    "espree": "^3.3.2",
+    "espree": "^3.4.0",
     "esprima": "^3.1.3",
     "flow-parser": "^0.38.0",
-    "prettier": "^0.14.1",
+    "prettier": "^0.15.0",
     "shift-parser": "^5.0.2",
     "unexpected": "^10.23.0"
   }
