@@ -219,9 +219,10 @@ function run(input) {
           `Attempt ${attemptNum}: The test function threw an unexpected error:`,
           printError(error, testData.code)
         ].join("\n");
-        const extraMessage = options.reproduce
-          ? null
-          : writeFiles(outputDir, testData.code, {});
+        const extraMessage = writeFiles(outputDir, {
+          code: testData.code,
+          reproduce: options.reproduce
+        });
         yield {
           message: (
             extraMessage ? `${mainMessage}\n\n${extraMessage}` : mainMessage
@@ -236,9 +237,11 @@ function run(input) {
           `Attempt ${attemptNum}: The test function returned an error:`,
           printError(result.error, testData.code)
         ].join("\n");
-        const extraMessage = options.reproduce
-          ? null
-          : writeFiles(outputDir, testData.code, result);
+        const extraMessage = writeFiles(outputDir, {
+          code: testData.code,
+          result,
+          reproduce: options.reproduce
+        });
         yield {
           message: (
             extraMessage ? `${mainMessage}\n\n${extraMessage}` : mainMessage
@@ -263,7 +266,10 @@ function run(input) {
   return { loop };
 }
 
-function writeFiles(outputDir, code, result) {
+function writeFiles(
+  outputDir,
+  { code = null, result = {}, reproduce = false } = {}
+) {
   try {
     mkdirp.sync(outputDir);
   } catch (error) {
@@ -282,7 +288,7 @@ function writeFiles(outputDir, code, result) {
   }
 
   let reproductionDataString;
-  if ("reproductionData" in result) {
+  if ("reproductionData" in result && !reproduce) {
     try {
       reproductionDataString = JSON.stringify(result.reproductionData, null, 2);
     } catch (error) {
@@ -296,10 +302,12 @@ function writeFiles(outputDir, code, result) {
     }
   }
 
-  tryWrite(FILES.random, code);
-  tryWrite(FILES.randomBackup, code);
+  if (code !== null && !reproduce) {
+    tryWrite(FILES.random, code);
+    tryWrite(FILES.randomBackup, code);
+  }
 
-  if (reproductionDataString) {
+  if (reproductionDataString && !reproduce) {
     tryWrite(FILES.reproductionData, reproductionDataString);
   }
 
