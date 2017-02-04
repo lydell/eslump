@@ -354,7 +354,7 @@ function getLocation(error) {
 }
 
 function indent(string) {
-  return string.replace(/^/g, "  ");
+  return string.replace(/^/mg, "  ");
 }
 
 module.exports = { run, generateRandomJS };
