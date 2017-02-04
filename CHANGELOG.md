@@ -1,3 +1,8 @@
+### Version 1.3.1 (2017-02-04)
+
+- Fixed: A somewhat rare error message is now indented properly.
+
+
 ### Version 1.3.0 (2017-02-04)
 
 - Improved: Artifacts are now written to disk when using the `--reproduce` flag.
