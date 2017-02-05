@@ -1,9 +1,12 @@
 const expect = require("unexpected");
 
 module.exports = (generate, generateRandomOptions) => (
-  { code, sourceType, reproductionData = {} }
+  { code, sourceType, reproductionData = null }
 ) => {
-  const { options = generateRandomOptions({ sourceType }) } = reproductionData;
+  const isReproduction = reproductionData !== null;
+  const {
+    options = generateRandomOptions({ sourceType })
+  } = reproductionData || {};
   const generateData = { sourceType, options };
   const artifacts = {};
 
@@ -17,8 +20,9 @@ module.exports = (generate, generateRandomOptions) => (
   } catch (error) {
     // Ignore parse errors: We’re testing the printer here, not the parsers.
     if (
-      String(error).includes("SyntaxError") ||
-        error && typeof error.column === "number"
+      !isReproduction &&
+        (String(error).includes("SyntaxError") ||
+          error && typeof error.column === "number")
     ) {
       return;
     }
