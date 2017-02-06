@@ -76,7 +76,7 @@ function randomMultiLineComment({ allowNewlines = false } = {}) {
 const randomInsignificantJSChoices = [randomWhitespace, randomMultiLineComment];
 
 const randomInsignificantJSChoicesWithNewlines = [
-  randomLineTerminator,
+  () => randomLineTerminator().repeat(randomInt(1, 2)),
   randomWhitespace,
   randomSingleLineComment,
   () => randomMultiLineComment({ allowNewlines: true })
