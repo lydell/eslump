@@ -5,8 +5,8 @@ function parse(code) {
   const ast = flow.parse(code);
 
   if (ast.errors.length > 0) {
-    const message = ast
-      .errors.map(
+    const message = ast.errors
+      .map(
         ({ message, loc: { start } }) =>
           `${message} (${start.line}:${start.column})`
       )

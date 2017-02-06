@@ -23,7 +23,8 @@ class CustomTokenStream extends TokenStream {
       ? this._comments && Math.random() <= this._probability
           ? random.insignificantJS(random.int(5), {
               allowNewlines: tokenString !== NO_NEWLINE
-            }) || " "
+            }) ||
+              " "
           : tokenString === NO_NEWLINE ? " " : tokenString
       : tokenString;
 
