@@ -1,3 +1,9 @@
+### Version 1.4.0 (2017-02-06)
+
+- Improved: The probability of blank lines when using the `--comments` flag is
+  now greater.
+
+
 ### Version 1.3.1 (2017-02-04)
 
 - Fixed: A somewhat rare error message is now indented properly.
