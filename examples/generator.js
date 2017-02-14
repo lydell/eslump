@@ -21,8 +21,8 @@ module.exports = (generate, generateRandomOptions) => (
     // Ignore parse errors: We’re testing the printer here, not the parsers.
     if (
       !isReproduction &&
-        (String(error).includes("SyntaxError") ||
-          error && typeof error.column === "number")
+      (String(error).includes("SyntaxError") ||
+        error && typeof error.column === "number")
     ) {
       return;
     }
