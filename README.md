@@ -176,9 +176,10 @@ module.exports = ({
 
 ## Ideas for the future
 
+- Fuzzing JSX.
+- Fuzzing Flowtype annotations.
 - Automatically narrow down JavaScript that causes an error, instead of having
   the user do it manually. Looking for a challenge? You’ve just found it.
-- Though not part of the ECMAScript standard, fuzzing JSX would be interesting.
 
 ## License
 
