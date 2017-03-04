@@ -13,6 +13,7 @@ function generateRandomOptions({ sourceType }) {
     singleQuote: random.bool(),
     trailingComma: random.item(["none", "es5", "all"]),
     bracketSpacing: random.bool(),
+    jsxBracketSameLine: random.bool(),
     parser: sourceType === "module" ? random.item(["babylon", "flow"]) : "flow"
   };
 }
