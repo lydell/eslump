@@ -22,7 +22,7 @@ module.exports = (generate, generateRandomOptions) => (
     if (
       !isReproduction &&
       (String(error).includes("SyntaxError") ||
-        error && typeof error.column === "number")
+        (error && typeof error.column === "number"))
     ) {
       return;
     }

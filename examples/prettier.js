@@ -11,7 +11,7 @@ function generateRandomOptions({ sourceType }) {
     printWidth: random.int(200),
     tabWidth: random.int(12),
     singleQuote: random.bool(),
-    trailingComma: random.bool(),
+    trailingComma: random.item(["none", "es5", "all"]),
     bracketSpacing: random.bool(),
     parser: sourceType === "module" ? random.item(["babylon", "flow"]) : "flow"
   };

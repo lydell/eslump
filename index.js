@@ -148,11 +148,7 @@ function run(input) {
 
   if (typeof testFunction !== "function") {
     return {
-      stderr: (
-        `Expected \`require(${JSON.stringify(
-          testModule
-        )})\` to return a function, but got: ${testFunction}`
-      ),
+      stderr: `Expected \`require(${JSON.stringify(testModule)})\` to return a function, but got: ${testFunction}`,
       code: 1
     };
   }
@@ -167,9 +163,7 @@ function run(input) {
       reproductionCode = fs.readFileSync(codePath, "utf8");
     } catch (error) {
       return {
-        stderr: (
-          `Failed to read '${codePath}' for reproduction:\n${error.message}`
-        ),
+        stderr: `Failed to read '${codePath}' for reproduction:\n${error.message}`,
         code: 1
       };
     }
@@ -180,9 +174,7 @@ function run(input) {
     } catch (error) {
       if (error.code !== "ENOENT") {
         return {
-          stderr: (
-            `Failed to read '${dataPath}' for reproduction:\n${error.message}`
-          ),
+          stderr: `Failed to read '${dataPath}' for reproduction:\n${error.message}`,
           code: 1
         };
       }
@@ -224,9 +216,9 @@ function run(input) {
           reproduce: options.reproduce
         });
         yield {
-          message: (
-            extraMessage ? `${mainMessage}\n\n${extraMessage}` : mainMessage
-          ),
+          message: extraMessage
+            ? `${mainMessage}\n\n${extraMessage}`
+            : mainMessage,
           code: 1
         };
         break;
@@ -243,9 +235,9 @@ function run(input) {
           reproduce: options.reproduce
         });
         yield {
-          message: (
-            extraMessage ? `${mainMessage}\n\n${extraMessage}` : mainMessage
-          ),
+          message: extraMessage
+            ? `${mainMessage}\n\n${extraMessage}`
+            : mainMessage,
           code: 1
         };
         break;

@@ -23,8 +23,7 @@ class CustomTokenStream extends TokenStream {
       ? this._comments && Math.random() <= this._probability
           ? random.insignificantJS(random.int(5), {
               allowNewlines: tokenString !== NO_NEWLINE
-            }) ||
-              " "
+            }) || " "
           : tokenString === NO_NEWLINE ? " " : tokenString
       : tokenString;
 
@@ -61,9 +60,11 @@ function generateRandomJS(options = {}) {
     ? shiftFuzzer.fuzzScript
     : shiftFuzzer.fuzzModule;
 
-  const randomAST = fuzzer(new shiftFuzzer.FuzzerState({
-    maxDepth: options.maxDepth
-  }));
+  const randomAST = fuzzer(
+    new shiftFuzzer.FuzzerState({
+      maxDepth: options.maxDepth
+    })
+  );
 
   return codeGen(randomAST, { comments: options.comments });
 }
