@@ -1,3 +1,11 @@
+### Version 1.5.0 (2017-03-25)
+
+- Added: Newlines are sometimes printed instead of semicolons.
+- Added: Expressions are sometimes wrapped in (unnecessary) parentheses.
+- Changed: The `--comments` option now only deals with comments.
+- Added: The `--whitespace` option for randomizing whitespace.
+
+
 ### Version 1.4.0 (2017-02-06)
 
 - Improved: The probability of blank lines when using the `--comments` flag is
