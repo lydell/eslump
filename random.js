@@ -15,7 +15,6 @@ const whitespace = [
   "\xa0", // NO-BREAK SPACE
   // Disabled since they make inspecting the random JS painful:
   // "\u1680", // OGHAM SPACE MARK
-  "\u180e", // MONGOLIAN VOWEL SEPARATOR
   "\u2000", // EN QUAD
   "\u2001", // EM QUAD
   "\u2002", // EN SPACE
