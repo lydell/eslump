@@ -73,21 +73,32 @@ function randomMultiLineComment({ allowNewlines = false } = {}) {
   return `/*${contents}*/`;
 }
 
-const randomInsignificantJSChoices = [randomWhitespace, randomMultiLineComment];
+const insertCommentsTokens = /\r\n|\s/g;
 
-const randomInsignificantJSChoicesWithNewlines = [
-  () => randomLineTerminator().repeat(randomInt(1, 2)),
-  randomWhitespace,
+const insertCommentsChoices = [randomMultiLineComment];
+
+const insertCommentsChoicesWithNewlines = [
   randomSingleLineComment,
   () => randomMultiLineComment({ allowNewlines: true })
 ];
 
-function randomInsignificantJS(length, { allowNewlines = false } = {}) {
+function insertComments(
+  whitespaceString,
+  { times = 1, allowNewlines = false } = {}
+) {
   const choices = allowNewlines
-    ? randomInsignificantJSChoicesWithNewlines
-    : randomInsignificantJSChoices;
+    ? insertCommentsChoicesWithNewlines
+    : insertCommentsChoices;
 
-  return randomString(length, () => randomItem(choices)());
+  const items = whitespaceString.match(insertCommentsTokens) || [];
+
+  for (let i = 0; i < times; i++) {
+    const index = randomInt(0, items.length - 1);
+    const comment = randomItem(choices)();
+    items.splice(index, 0, comment);
+  }
+
+  return items.join("");
 }
 
 module.exports = {
@@ -100,5 +111,5 @@ module.exports = {
   whitespace: randomWhitespace,
   singleLineComment: randomSingleLineComment,
   multiLineComment: randomMultiLineComment,
-  insignificantJS: randomInsignificantJS
+  insertComments
 };

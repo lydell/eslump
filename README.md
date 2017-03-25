@@ -22,6 +22,7 @@ Options:
 
   --max-depth Number    The maximum depth of the random JavaScript. - default: 7
   --source-type String  Parsing mode. - either: module or script - default: module
+  --whitespace          Randomize the whitespace in the random JavaScript.
   --comments            Insert random comments into the random JavaScript.
   -r, --reproduce       Reproduce a previous error using files in OUTPUT_DIR.
   -h, --help            Show help

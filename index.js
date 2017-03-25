@@ -63,6 +63,11 @@ const program = optionator({
       description: "Parsing mode."
     },
     {
+      option: "whitespace",
+      type: "Boolean",
+      description: "Randomize the whitespace in the random JavaScript."
+    },
+    {
       option: "comments",
       type: "Boolean",
       description: "Insert random comments into the random JavaScript."
