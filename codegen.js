@@ -64,7 +64,7 @@ class CustomTokenStream extends TokenStream {
       // Sometimes randomize whitespace.
       if (
         this._options.whitespace &&
-          Math.random() < this._probabilities.whitespace
+        Math.random() < this._probabilities.whitespace
       ) {
         const choices = allowNewlines
           ? [
@@ -158,7 +158,7 @@ const parenthesesAddingHandler = {
     // Sometimes add extra parentheses.
     if (
       PARENTHESES_WRAPPABLE_METHOD.test(property) &&
-        Math.random() < target._probabilities.parentheses
+      Math.random() < target._probabilities.parentheses
     ) {
       return (...args) => {
         const times = randomTimes();
@@ -192,9 +192,11 @@ function generateRandomJS(options = {}) {
     ? shiftFuzzer.fuzzScript
     : shiftFuzzer.fuzzModule;
 
-  const randomAST = fuzzer(new shiftFuzzer.FuzzerState({
-    maxDepth: options.maxDepth
-  }));
+  const randomAST = fuzzer(
+    new shiftFuzzer.FuzzerState({
+      maxDepth: options.maxDepth
+    })
+  );
 
   return codeGen(randomAST, {
     comments: options.comments,
