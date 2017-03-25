@@ -194,7 +194,7 @@ module.exports = ({
 [espree]: https://github.com/eslint/espree
 [esprima]: https://github.com/jquery/esprima
 [flow]: https://github.com/facebook/flow
-[prettier]: https://github.com/jlongster/prettier/
+[prettier]: https://github.com/prettier/prettier/
 [shift-codegen]: https://github.com/shapesecurity/shift-codegen-js
 [shift-fuzzer]: https://github.com/shapesecurity/shift-fuzzer-js
 [shift-parser]: https://github.com/shapesecurity/shift-parser-js
