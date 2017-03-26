@@ -92,7 +92,7 @@ function insertComments(
   const items = whitespaceString.match(insertCommentsTokens) || [];
 
   for (let i = 0; i < times; i++) {
-    const index = randomInt(0, items.length - 1);
+    const index = randomInt(0, items.length);
     const comment = randomItem(choices)();
     items.splice(index, 0, comment);
   }
