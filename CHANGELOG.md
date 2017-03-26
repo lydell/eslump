@@ -1,3 +1,9 @@
+### Version 1.5.1 (2017-03-26)
+
+- Fixed: Random comments can now be inserted at the end of sequences of
+  whitespace.
+
+
 ### Version 1.5.0 (2017-03-25)
 
 - Added: Newlines are sometimes printed instead of semicolons.
