@@ -36,22 +36,22 @@
     "optionator": "^0.8.2",
     "random-int": "^1.0.0",
     "random-item": "^1.0.0",
-    "shift-codegen": "^5.0.2",
+    "shift-codegen": "^5.0.3",
     "shift-fuzzer": "^1.0.1",
     "shift-reducer": "^4.0.0"
   },
   "devDependencies": {
-    "acorn": "^4.0.11",
-    "babel-generator": "^6.24.0",
+    "acorn": "^5.0.3",
+    "babel-generator": "^6.24.1",
     "babylon": "^6.16.1",
     "escodegen": "^1.8.1",
-    "eslint": "^3.18.0",
+    "eslint": "^3.19.0",
     "eslint-plugin-prettier": "^2.0.1",
-    "espree": "^3.4.0",
+    "espree": "^3.4.1",
     "esprima": "^3.1.3",
-    "flow-parser": "^0.42.0",
-    "prettier": "^0.22.0",
-    "shift-parser": "^5.0.4",
-    "unexpected": "^10.26.3"
+    "flow-parser": "^0.44.0",
+    "prettier": "^1.2.2",
+    "shift-parser": "^5.0.5",
+    "unexpected": "^10.27.0"
   }
 }

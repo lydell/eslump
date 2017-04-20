@@ -73,13 +73,15 @@ class CustomTokenStream extends TokenStream {
             ]
           : [random.whitespace];
         newTokenString = random.string(randomTimes(), () =>
-          random.item(choices)());
+          random.item(choices)()
+        );
         didRandomizeWhitespace = true;
       }
 
       // Sometimes randomize comments.
       if (
-        this._options.comments && Math.random() < this._probabilities.comments
+        this._options.comments &&
+        Math.random() < this._probabilities.comments
       ) {
         newTokenString = random.insertComments(newTokenString, {
           times: randomTimes(),
