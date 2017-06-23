@@ -1,14 +1,15 @@
+"use strict";
+
 const expect = require("unexpected");
 
-module.exports = (generate, generateRandomOptions) => ({
-  code,
-  sourceType,
-  reproductionData = null
-}) => {
+module.exports = (generate, generateRandomOptions) => generatorOptions => {
+  const code = generatorOptions.code;
+  const sourceType = generatorOptions.sourceType;
+  const reproductionData = generatorOptions.reproductionData || null;
   const isReproduction = reproductionData !== null;
-  const {
-    options = generateRandomOptions({ sourceType })
-  } = reproductionData || {};
+  const options = reproductionData
+    ? reproductionData.options
+    : generateRandomOptions({ sourceType });
   const generateData = { sourceType, options };
   const artifacts = {};
 

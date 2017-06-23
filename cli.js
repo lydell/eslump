@@ -2,7 +2,7 @@
 
 "use strict";
 
-const { run } = require("./");
+const run = require("./").run;
 
 const result = run(process.argv.slice(2));
 

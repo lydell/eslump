@@ -1,3 +1,5 @@
+"use strict";
+
 const flow = require("flow-parser");
 const testParser = require("./parser");
 
@@ -7,8 +9,9 @@ function parse(code) {
   if (ast.errors.length > 0) {
     const message = ast.errors
       .map(
-        ({ message, loc: { start } }) =>
-          `${message} (${start.line}:${start.column})`
+        messageInfo =>
+          `${messageInfo.message} (${messageInfo.loc.start.line}:${messageInfo
+            .loc.start.column})`
       )
       .join("\n");
     const error = new SyntaxError(message);

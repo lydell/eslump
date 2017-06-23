@@ -1,3 +1,5 @@
+"use strict";
+
 const randomInt = require("random-int");
 const randomItem = require("random-item");
 
@@ -41,7 +43,7 @@ const lineTerminators = [
 ];
 
 function randomArray(length, randomItem) {
-  return [...Array(length)].map(() => randomItem());
+  return Array.from(Array(length)).map(() => randomItem());
 }
 
 function randomString(length, randomChar) {
@@ -63,9 +65,9 @@ function randomSingleLineComment() {
   return `//${contents}${newline}`;
 }
 
-function randomMultiLineComment({ allowNewlines = false } = {}) {
+function randomMultiLineComment(options) {
   const chars = whitespace.concat(
-    allowNewlines ? lineTerminators : [],
+    options && options.allowNewlines ? lineTerminators : [],
     letters
   );
   const contents = randomString(randomInt(20), () => randomItem(chars));
@@ -81,11 +83,9 @@ const insertCommentsChoicesWithNewlines = [
   () => randomMultiLineComment({ allowNewlines: true })
 ];
 
-function insertComments(
-  whitespaceString,
-  { times = 1, allowNewlines = false } = {}
-) {
-  const choices = allowNewlines
+function insertComments(whitespaceString, options) {
+  const times = options && options.times === undefined ? 1 : options.times;
+  const choices = options && options.allowNewlines
     ? insertCommentsChoicesWithNewlines
     : insertCommentsChoices;
 

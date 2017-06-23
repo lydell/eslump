@@ -1,5 +1,7 @@
-const { FormattedCodeGen, Sep, Paren } = require("shift-codegen");
-const { TokenStream } = require("shift-codegen/dist/token_stream");
+"use strict";
+
+const ShiftCodegen = require("shift-codegen");
+const TokenStream = require("shift-codegen/dist/token_stream").TokenStream;
 const shiftFuzzer = require("shift-fuzzer");
 const shiftReducer = require("shift-reducer");
 const random = require("./random");
@@ -19,9 +21,12 @@ function randomTimes() {
 }
 
 class CustomTokenStream extends TokenStream {
-  constructor({ comments = false, whitespace = false } = {}) {
+  constructor(options) {
     super();
-    this._options = { comments, whitespace };
+    this._options = {
+      comments: options && options.comments,
+      whitespace: options && options.whitespace
+    };
     this._probabilities = {
       comments: Math.random(),
       whitespace: Math.random(),
@@ -31,7 +36,7 @@ class CustomTokenStream extends TokenStream {
   }
 
   put(tokenString, isRegExp) {
-    const { optionalSemi } = this;
+    const optionalSemi = this.optionalSemi;
 
     // Sometimes print semicolons, sometimes newlines.
     if (optionalSemi) {
@@ -109,9 +114,9 @@ class CustomTokenStream extends TokenStream {
   }
 }
 
-class CustomFormattedCodeGen extends FormattedCodeGen {
-  constructor(...args) {
-    super(...args);
+class CustomFormattedCodeGen extends ShiftCodegen.FormattedCodeGen {
+  constructor() {
+    super();
     this._probabilities = {
       parentheses: Math.random()
     };
@@ -134,7 +139,7 @@ class CustomFormattedCodeGen extends FormattedCodeGen {
 
   // Remove parentheses in `const obj = {(a)}`;
   reduceObjectExpression(node, data) {
-    const { properties } = data;
+    const properties = data.properties;
     const newProperties = properties.map(removeParentheses);
     const newData = Object.assign({}, data, { properties: newProperties });
     return super.reduceObjectExpression(node, newData);
@@ -142,7 +147,7 @@ class CustomFormattedCodeGen extends FormattedCodeGen {
 
   // Remove parentheses in `export {(a)}`;
   reduceExportLocalSpecifier(node, data) {
-    const { name } = data;
+    const name = data.name;
     const newName = removeParentheses(name);
     const newData = Object.assign({}, data, { name: newName });
     return super.reduceExportLocalSpecifier(node, newData);
@@ -150,59 +155,63 @@ class CustomFormattedCodeGen extends FormattedCodeGen {
 }
 
 function removeParentheses(node) {
-  return node instanceof Paren
+  return node instanceof ShiftCodegen.Paren
     ? removeParentheses(node.expr.children[1])
     : node;
 }
 
-const parenthesesAddingHandler = {
-  get(target, property) {
-    // Sometimes add extra parentheses.
-    if (
-      PARENTHESES_WRAPPABLE_METHOD.test(property) &&
-      Math.random() < target._probabilities.parentheses
-    ) {
-      return (...args) => {
-        const times = randomTimes();
-        let node = target[property](...args);
-        for (let i = 0; i < times; i++) {
-          node = target.paren(
-            node,
-            Sep.EXPRESSION_PAREN_BEFORE,
-            Sep.EXPRESSION_PAREN_AFTER
-          );
-        }
-        return node;
-      };
+const overridablePrototypeMethodNames = new Set();
+
+for (
+  let prototype = CustomFormattedCodeGen.prototype;
+  prototype;
+  prototype = Object.getPrototypeOf(prototype)
+) {
+  Object.getOwnPropertyNames(prototype)
+    .filter(methodName => PARENTHESES_WRAPPABLE_METHOD.test(methodName))
+    .forEach(methodName => overridablePrototypeMethodNames.add(methodName));
+}
+overridablePrototypeMethodNames.forEach(methodName => {
+  const originalMethod = CustomFormattedCodeGen.prototype[methodName];
+
+  CustomFormattedCodeGen.prototype[methodName] = function() {
+    let node = originalMethod.apply(this, arguments);
+    if (Math.random() < this._probabilities.parentheses) {
+      const times = randomTimes();
+      for (let i = 0; i < times; i++) {
+        node = this.paren(
+          node,
+          ShiftCodegen.Sep.EXPRESSION_PAREN_BEFORE,
+          ShiftCodegen.Sep.EXPRESSION_PAREN_AFTER
+        );
+      }
     }
+    return node;
+  };
+});
 
-    return target[property];
-  }
-};
-
-function codeGen(ast, options = {}) {
+function codeGen(ast, options) {
   const generator = new CustomFormattedCodeGen();
-  const proxiedGenerator = new Proxy(generator, parenthesesAddingHandler);
-  const tokenStream = new CustomTokenStream(options);
-  const rep = shiftReducer.default(proxiedGenerator, ast);
+  const tokenStream = new CustomTokenStream(options || {});
+  const rep = shiftReducer.default(generator, ast);
   rep.emit(tokenStream);
   return tokenStream.result;
 }
 
-function generateRandomJS(options = {}) {
-  const fuzzer = options.sourceType === "script"
+function generateRandomJS(options) {
+  const fuzzer = options && options.sourceType === "script"
     ? shiftFuzzer.fuzzScript
     : shiftFuzzer.fuzzModule;
 
   const randomAST = fuzzer(
     new shiftFuzzer.FuzzerState({
-      maxDepth: options.maxDepth
+      maxDepth: options && options.maxDepth
     })
   );
 
   return codeGen(randomAST, {
-    comments: options.comments,
-    whitespace: options.whitespace
+    comments: options && options.comments,
+    whitespace: options && options.whitespace
   });
 }
 
