@@ -267,11 +267,7 @@ function run(input) {
   return { loop };
 }
 
-function writeFiles(
-  outputDir,
-  options
-  //{ code = null, result = {}, reproduce = false } = {}
-) {
+function writeFiles(outputDir, options) {
   const code = options && options.code === undefined ? options.code : null;
   const result = (options && options.result) || {};
   const reproduce = (options && options.reproduce) || false;
