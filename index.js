@@ -137,7 +137,8 @@ function run(input) {
     return { stdout: generateRandomJS(options), code: 0 };
   }
 
-  const [testModule, outputDir] = options._;
+  const testModule = options._[0];
+  const outputDir = options._[1];
 
   let testFunction;
   try {
@@ -153,7 +154,9 @@ function run(input) {
 
   if (typeof testFunction !== "function") {
     return {
-      stderr: `Expected \`require(${JSON.stringify(testModule)})\` to return a function, but got: ${testFunction}`,
+      stderr: `Expected \`require(${JSON.stringify(
+        testModule
+      )})\` to return a function, but got: ${testFunction}`,
       code: 1
     };
   }
@@ -248,7 +251,8 @@ function run(input) {
         break;
       } else if (options.reproduce) {
         yield {
-          message: "Failed to reproduce the error; the test function succeeded.",
+          message:
+            "Failed to reproduce the error; the test function succeeded.",
           code: 1
         };
         break;
@@ -265,8 +269,13 @@ function run(input) {
 
 function writeFiles(
   outputDir,
-  { code = null, result = {}, reproduce = false } = {}
+  options
+  //{ code = null, result = {}, reproduce = false } = {}
 ) {
+  const code = options && options.code === undefined ? options.code : null;
+  const result = (options && options.result) || {};
+  const reproduce = (options && options.reproduce) || false;
+
   try {
     mkdirp.sync(outputDir);
   } catch (error) {
@@ -309,21 +318,26 @@ function writeFiles(
   }
 
   if (result.artifacts) {
-    for (const [name, content] of Object.entries(result.artifacts)) {
-      tryWrite(name, String(content));
-    }
+    Object.keys(result.artifacts).forEach(name => {
+      tryWrite(name, String(result.artifacts[name]));
+    });
   }
 
   return message.length === 0 ? null : message.join("\n\n");
 }
 
-function printError(error, code = "") {
+function printError(error, code) {
   if (code && error) {
-    const { line, column } = getLocation(error);
+    const errorLocation = getLocation(error);
     if (typeof line === "number") {
-      const codeFrame = createCodeFrame(code, line, column, {
-        highlightCode: true
-      });
+      const codeFrame = createCodeFrame(
+        code,
+        errorLocation.line,
+        errorLocation.column,
+        {
+          highlightCode: true
+        }
+      );
       return `${error.stack}\n${codeFrame}`;
     }
   }
@@ -340,8 +354,8 @@ function getLocation(error) {
   const line = error.loc && typeof error.loc.line === "number"
     ? error.loc.line
     : typeof error.lineNumber === "number"
-        ? error.lineNumber
-        : typeof error.line === "number" ? error.line : undefined;
+      ? error.lineNumber
+      : typeof error.line === "number" ? error.line : undefined;
 
   const column = error.loc && typeof error.loc.column === "number"
     ? error.loc.column + 1

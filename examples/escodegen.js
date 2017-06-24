@@ -1,11 +1,16 @@
+"use strict";
+
 const escodegen = require("escodegen");
 const esprima = require("esprima");
 const testGenerator = require("./generator");
 const random = require("../random");
 
-function generate(code, { sourceType, options }) {
-  const ast = esprima.parse(code, { sourceType, comments: true });
-  return escodegen.generate(ast, options);
+function generate(code, options) {
+  const ast = esprima.parse(code, {
+    sourceType: options.sourceType,
+    comments: true
+  });
+  return escodegen.generate(ast, options.options);
 }
 
 function generateRandomOptions() {

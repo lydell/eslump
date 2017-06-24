@@ -46,6 +46,7 @@
     "babylon": "^6.17.1",
     "escodegen": "^1.8.1",
     "eslint": "^3.19.0",
+    "eslint-plugin-node": "^5.0.0",
     "eslint-plugin-prettier": "^2.1.1",
     "espree": "^3.4.3",
     "esprima": "^3.1.3",

@@ -1,3 +1,5 @@
+"use strict";
+
 const esprima = require("esprima");
 const testParser = require("./parser");
 

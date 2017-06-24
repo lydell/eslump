@@ -1,3 +1,5 @@
+"use strict";
+
 const babylon = require("babylon");
 const testParser = require("./parser");
 

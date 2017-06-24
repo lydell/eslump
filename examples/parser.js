@@ -1,14 +1,20 @@
+"use strict";
+
 const expect = require("unexpected");
 
-module.exports = (parse, getType = null) => ({ code, sourceType }) => {
+module.exports = (parse, getType) => generatorOptions => {
   let ast;
   try {
-    ast = parse(code, { sourceType });
+    ast = parse(generatorOptions.code, {
+      sourceType: generatorOptions.sourceType
+    });
   } catch (error) {
     return { error };
   }
 
-  const type = getType ? getType({ sourceType }) : "Program";
+  const type = getType
+    ? getType({ sourceType: generatorOptions.sourceType })
+    : "Program";
 
   try {
     expect(ast, "to have own property", "type", type);
