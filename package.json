@@ -15,7 +15,6 @@
     "esfuzz",
     "shift-fuzzer"
   ],
-  "preferGlobal": true,
   "bin": {
     "eslump": "cli-runner.js"
   },
@@ -23,6 +22,7 @@
     "cli-program.js",
     "cli-runner.js",
     "codegen.js",
+    "index.js",
     "random.js"
   ],
   "repository": "lydell/eslump",

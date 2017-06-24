@@ -1,6 +1,6 @@
 # eslump
 
-CLI tool for fuzz testing JavaScript parsers and suchlike programs.
+Fuzz testing JavaScript parsers and suchlike programs.
 
 > **es :** short for ECMAScript (the JavaScript standard)  
 > **lump :** a piece or mass of indefinite size and shape  
@@ -10,9 +10,17 @@ Inspired by [esfuzz]. Powered by [shift-fuzzer] and [shift-codegen].
 
 ## Installation
 
+eslump is primarily intended to be used as a CLI tool.
+
 `npm install --global eslump`
 
+You can also use parts of it as a Node.js module.
+
+`npm install eslump`
+
 ## Usage
+
+### CLI
 
 ```
 Usage: eslump [options]
@@ -61,6 +69,34 @@ Examples:
   # Reproduce the narrowed down case.
   $ eslump ./test.js output/ --reproduce
 ```
+
+### Module
+
+### Overview
+
+```js
+const {generateRandomJS} = require("eslump");
+
+const randomJSString = generateRandomJS({
+  sourceType: "module",
+  maxDepth: 7,
+  comments: false,
+  whitespace: false,
+});
+```
+
+#### generateRandomJS(options)
+
+Returns a string of random JavaScript code.
+
+If you want, you can pass some options:
+
+Option | Type | Default | Description
+-------|------|---------|------------
+sourceType | `"module"` or `"script"` | `"module"` | The type of code to generate.
+maxDepth | integer | 7 | How deeply nested AST:s to generate.
+comments | boolean | false | Whether or not to generate random comments.
+whitespace | boolean | false | Whether or not to generate random whitespace.
 
 ## Examples
 
