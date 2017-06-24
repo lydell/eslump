@@ -364,4 +364,4 @@ function indent(string) {
   return string.replace(/^/gm, "  ");
 }
 
-module.exports = { run, generateRandomJS };
+module.exports = run;

@@ -17,12 +17,12 @@
   ],
   "preferGlobal": true,
   "bin": {
-    "eslump": "cli.js"
+    "eslump": "cli-runner.js"
   },
   "files": [
-    "cli.js",
+    "cli-program.js",
+    "cli-runner.js",
     "codegen.js",
-    "index.js",
     "random.js"
   ],
   "repository": "lydell/eslump",

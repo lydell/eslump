@@ -2,7 +2,7 @@
 
 "use strict";
 
-const run = require("./").run;
+const run = require("./cli-program");
 
 const result = run(process.argv.slice(2));
 
