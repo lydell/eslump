@@ -98,6 +98,36 @@ maxDepth | integer | 7 | How deeply nested AST:s to generate.
 comments | boolean | false | Whether or not to generate random comments.
 whitespace | boolean | false | Whether or not to generate random whitespace.
 
+## Disclaimer
+
+eslump was created from the need of finding edge cases in [Prettier]. It started
+out as a bare-bones little script in a branch on my fork of that repo. As I
+wanted more and more features, I extracted it and fleshed it out in its own
+repo. Then I realized that it might be useful to others, so I put it on GitHub
+and made the CLI installable from npm.
+
+Initially, eslump basically just strung together [shift-fuzzer] and
+[shift-codegen]. Then, I realized that no random comments were generated, so I
+hacked that in (along with random whitespace) since comments are very difficult
+to get right in Prettier. Then, random parentheses and semicolons where
+requested, so I hacked that in as well.
+
+eslump has successfully found lots of little edge cases in Prettier, so it
+evidently works. But there are no tests. (I’ve just gone meta and fuzz-tested it
+using itself basically.)
+
+From the beginning eslump was only ever intended to be a CLI tool, but other
+people have started to want to use eslump's code generation as an npm module, so
+these days it can also be used as a module. If you know what you're doing.
+
+Here are some features I'd like to see from a proper random JS library:
+
+- No hacks.
+- Seeded randomness, so things can be reproduced.
+- JSX and Flow support.
+- Ability to generate code without any early errors.
+- Possibly ways to prevent certain syntax constructs from being generated.
+
 ## Examples
 
 There are several examples in the [examples](examples) directory.
@@ -113,7 +143,7 @@ There are several examples in the [examples](examples) directory.
 - Code generators:
   - [babel-generator]
   - [escodegen]
-  - [prettier]
+  - [Prettier]
   - [shift-codegen]
 
 To run the Babylon example, for instance, follow these steps:
@@ -211,13 +241,6 @@ module.exports = ({
   try-catch. (eslump will catch uncaught errors, but it will not have a chance
   to write `OUTPUT_DIR/reproductionData.json` or any artifacts.)
 
-## Ideas for the future
-
-- Fuzzing JSX.
-- Fuzzing Flowtype annotations.
-- Automatically narrow down JavaScript that causes an error, instead of having
-  the user do it manually. Looking for a challenge? You’ve just found it.
-
 ## License
 
 [MIT](LICENSE).
@@ -230,7 +253,7 @@ module.exports = ({
 [espree]: https://github.com/eslint/espree
 [esprima]: https://github.com/jquery/esprima
 [flow]: https://github.com/facebook/flow
-[prettier]: https://github.com/prettier/prettier/
+[Prettier]: https://github.com/prettier/prettier/
 [shift-codegen]: https://github.com/shapesecurity/shift-codegen-js
 [shift-fuzzer]: https://github.com/shapesecurity/shift-fuzzer-js
 [shift-parser]: https://github.com/shapesecurity/shift-parser-js
