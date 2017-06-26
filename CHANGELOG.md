@@ -1,3 +1,10 @@
+### Version 1.6.0 (2017-06-26)
+
+- Added: Node.js 4 support. Thanks to Teddy Katz (@not-an-aardvark)!
+- Added: eslump can now explicitly be used as an npm module, exposing the
+  `generateRandomJS` function.
+
+
 ### Version 1.5.1 (2017-03-26)
 
 - Fixed: Random comments can now be inserted at the end of sequences of
