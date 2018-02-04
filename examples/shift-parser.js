@@ -4,9 +4,10 @@ const shiftParser = require("shift-parser");
 const testParser = require("./parser");
 
 function parse(code, generatorOptions) {
-  const parseFunction = generatorOptions.sourceType === "module"
-    ? shiftParser.parseModule
-    : shiftParser.parseScript;
+  const parseFunction =
+    generatorOptions.sourceType === "module"
+      ? shiftParser.parseModule
+      : shiftParser.parseScript;
   return parseFunction(code, { earlyErrors: false });
 }
 

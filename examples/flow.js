@@ -10,8 +10,9 @@ function parse(code) {
     const message = ast.errors
       .map(
         messageInfo =>
-          `${messageInfo.message} (${messageInfo.loc.start.line}:${messageInfo
-            .loc.start.column})`
+          `${messageInfo.message} (${messageInfo.loc.start.line}:${
+            messageInfo.loc.start.column
+          })`
       )
       .join("\n");
     const error = new SyntaxError(message);

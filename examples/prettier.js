@@ -12,9 +12,10 @@ function generateRandomOptions(options) {
   return {
     bracketSpacing: random.bool(),
     jsxBracketSameLine: random.bool(),
-    parser: options.sourceType === "module"
-      ? random.item(["babylon", "flow"])
-      : "flow",
+    parser:
+      options.sourceType === "module"
+        ? random.item(["babylon", "flow"])
+        : "flow",
     printWidth: random.int(200),
     semi: random.bool(),
     singleQuote: random.bool(),

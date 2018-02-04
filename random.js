@@ -85,9 +85,10 @@ const insertCommentsChoicesWithNewlines = [
 
 function insertComments(whitespaceString, options) {
   const times = options && options.times === undefined ? 1 : options.times;
-  const choices = options && options.allowNewlines
-    ? insertCommentsChoicesWithNewlines
-    : insertCommentsChoices;
+  const choices =
+    options && options.allowNewlines
+      ? insertCommentsChoicesWithNewlines
+      : insertCommentsChoices;
 
   const items = whitespaceString.match(insertCommentsTokens) || [];
 

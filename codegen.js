@@ -199,9 +199,10 @@ function codeGen(ast, options) {
 }
 
 function generateRandomJS(options) {
-  const fuzzer = options && options.sourceType === "script"
-    ? shiftFuzzer.fuzzScript
-    : shiftFuzzer.fuzzModule;
+  const fuzzer =
+    options && options.sourceType === "script"
+      ? shiftFuzzer.fuzzScript
+      : shiftFuzzer.fuzzModule;
 
   const randomAST = fuzzer(
     new shiftFuzzer.FuzzerState({

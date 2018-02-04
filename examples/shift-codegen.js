@@ -6,9 +6,10 @@ const testGenerator = require("./generator");
 const random = require("../random");
 
 function generate(code, generatorOptions) {
-  const parseFunction = generatorOptions.sourceType === "module"
-    ? shiftParser.parseModule
-    : shiftParser.parseScript;
+  const parseFunction =
+    generatorOptions.sourceType === "module"
+      ? shiftParser.parseModule
+      : shiftParser.parseScript;
   const ast = parseFunction(code, { earlyErrors: false });
 
   const generator = generatorOptions.options.minimal

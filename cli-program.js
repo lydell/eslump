@@ -144,11 +144,12 @@ function run(input) {
   try {
     testFunction = require(testModule);
   } catch (error) {
-    const message = error &&
+    const message =
+      error &&
       error.code === "MODULE_NOT_FOUND" &&
       error.message.includes(testModule)
-      ? error.message
-      : `Error when loading module '${testModule}':\n${printError(error)}`;
+        ? error.message
+        : `Error when loading module '${testModule}':\n${printError(error)}`;
     return { stderr: message, code: 1 };
   }
 
@@ -171,7 +172,9 @@ function run(input) {
       reproductionCode = fs.readFileSync(codePath, "utf8");
     } catch (error) {
       return {
-        stderr: `Failed to read '${codePath}' for reproduction:\n${error.message}`,
+        stderr: `Failed to read '${codePath}' for reproduction:\n${
+          error.message
+        }`,
         code: 1
       };
     }
@@ -182,7 +185,9 @@ function run(input) {
     } catch (error) {
       if (error.code !== "ENOENT") {
         return {
-          stderr: `Failed to read '${dataPath}' for reproduction:\n${error.message}`,
+          stderr: `Failed to read '${dataPath}' for reproduction:\n${
+            error.message
+          }`,
           code: 1
         };
       }
@@ -347,15 +352,17 @@ function getLocation(error) {
   // Espree and Esprima has `.lineNumber` (1-indexed) and `.column` (1-indexed).
   // Shift-parser has `.line` (1-indexed) and `.column` (1-indexed).
 
-  const line = error.loc && typeof error.loc.line === "number"
-    ? error.loc.line
-    : typeof error.lineNumber === "number"
-      ? error.lineNumber
-      : typeof error.line === "number" ? error.line : undefined;
+  const line =
+    error.loc && typeof error.loc.line === "number"
+      ? error.loc.line
+      : typeof error.lineNumber === "number"
+        ? error.lineNumber
+        : typeof error.line === "number" ? error.line : undefined;
 
-  const column = error.loc && typeof error.loc.column === "number"
-    ? error.loc.column + 1
-    : typeof error.column === "number" ? error.column : undefined;
+  const column =
+    error.loc && typeof error.loc.column === "number"
+      ? error.loc.column + 1
+      : typeof error.column === "number" ? error.column : undefined;
 
   return { line, column };
 }
