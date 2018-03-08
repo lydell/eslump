@@ -38,21 +38,21 @@
     "random-item": "^1.0.0",
     "shift-codegen": "^5.0.5",
     "shift-fuzzer": "^1.0.2",
-    "shift-reducer": "^4.1.0"
+    "shift-reducer": "^4.2.0"
   },
   "devDependencies": {
-    "acorn": "^5.4.1",
+    "acorn": "^5.5.3",
     "babel-generator": "^6.26.1",
     "babylon": "^6.18.0",
-    "escodegen": "^1.9.0",
-    "eslint": "^4.17.0",
-    "eslint-plugin-node": "^5.2.1",
+    "escodegen": "^1.9.1",
+    "eslint": "^4.18.2",
+    "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "espree": "^3.5.3",
+    "espree": "^3.5.4",
     "esprima": "^4.0.0",
-    "flow-parser": "^0.64.0",
-    "prettier": "^1.10.2",
+    "flow-parser": "^0.67.1",
+    "prettier": "^1.11.1",
     "shift-parser": "^5.2.3",
-    "unexpected": "^10.37.0"
+    "unexpected": "^10.37.2"
   }
 }
