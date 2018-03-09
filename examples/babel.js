@@ -1,6 +1,6 @@
 "use strict";
 
-const babelGenerate = require("babel-generator");
+const babelGenerate = require("@babel/generator");
 const babylon = require("babylon");
 const testGenerator = require("./generator");
 const random = require("../random");
@@ -18,7 +18,6 @@ function generateRandomOptions() {
     compact: random.item([undefined, true, false, "auto"]),
     minified: random.bool(),
     concise: random.bool(),
-    quotes: random.item([undefined, "single", "double"]),
     jsonCompatibleStrings: random.bool()
   };
 }

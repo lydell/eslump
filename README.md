@@ -142,7 +142,7 @@ There are several examples in the [examples](examples) directory.
   - [shift-parser]
 
 - Code generators:
-  - [babel-generator]
+  - [@babel/generator]
   - [escodegen]
   - [Prettier]
   - [shift-codegen]
@@ -247,8 +247,8 @@ module.exports = ({
 [MIT](LICENSE).
 
 [acorn]: https://github.com/ternjs/acorn
-[babel-generator]: https://github.com/babel/babel/tree/master/packages/babel-generator
-[Babylon]: https://github.com/babel/babylon
+[@babel/generator]: https://github.com/babel/babel/tree/master/packages/babel-generator
+[Babylon]: https://github.com/babel/babel/blob/master/packages/babylon
 [cherow]: https://github.com/cherow/cherow
 [escodegen]: https://github.com/estools/escodegen
 [esfuzz]: https://github.com/estools/esfuzz
