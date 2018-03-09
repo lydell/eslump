@@ -1,6 +1,6 @@
 "use strict";
 
-const createCodeFrame = require("babel-code-frame");
+const babelCodeFrame = require("@babel/code-frame");
 const fs = require("fs");
 const mkdirp = require("mkdirp");
 const optionator = require("optionator");
@@ -331,10 +331,14 @@ function printError(error, code) {
   if (code && error) {
     const errorLocation = getLocation(error);
     if (typeof errorLocation.line === "number") {
-      const codeFrame = createCodeFrame(
+      const codeFrame = babelCodeFrame.codeFrameColumns(
         code,
-        errorLocation.line,
-        errorLocation.column,
+        {
+          start: {
+            line: errorLocation.line,
+            column: errorLocation.column
+          }
+        },
         {
           highlightCode: true
         }
