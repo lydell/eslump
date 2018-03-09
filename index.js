@@ -1,5 +1,3 @@
 "use strict";
 
-const generateRandomJS = require("./codegen");
-
-module.exports = { generateRandomJS };
+module.exports = require("./codegen");

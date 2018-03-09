@@ -216,4 +216,4 @@ function generateRandomJS(options) {
   });
 }
 
-module.exports = generateRandomJS;
+module.exports = { codeGen, generateRandomJS };
