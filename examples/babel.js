@@ -7,7 +7,7 @@ const random = require("../random");
 
 function generate(code, options) {
   const ast = babylon.parse(code, { sourceType: options.sourceType });
-  return babelGenerate.default(ast, options.options, code);
+  return babelGenerate.default(ast, options.options, code).code;
 }
 
 function generateRandomOptions() {
