@@ -135,6 +135,7 @@ There are several examples in the [examples](examples) directory.
 - Parsers:
   - [acorn]
   - [Babylon]
+  - [cherow]
   - [espree]
   - [esprima]
   - [flow]
@@ -248,6 +249,7 @@ module.exports = ({
 [acorn]: https://github.com/ternjs/acorn
 [babel-generator]: https://github.com/babel/babel/tree/master/packages/babel-generator
 [Babylon]: https://github.com/babel/babylon
+[cherow]: https://github.com/cherow/cherow
 [escodegen]: https://github.com/estools/escodegen
 [esfuzz]: https://github.com/estools/esfuzz
 [espree]: https://github.com/eslint/espree
