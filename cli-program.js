@@ -330,7 +330,7 @@ function writeFiles(outputDir, options) {
 function printError(error, code) {
   if (code && error) {
     const errorLocation = getLocation(error);
-    if (typeof line === "number") {
+    if (typeof errorLocation.line === "number") {
       const codeFrame = createCodeFrame(
         code,
         errorLocation.line,
