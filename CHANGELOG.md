@@ -1,3 +1,12 @@
+### Version 1.6.1 (2018-03-12)
+
+- Fixed: The "Babel code frame" now shows up for parse errors again. (Regression
+  since 1.6.0.)
+- Fixed: `random.js` is now created as expected again. (Regression since 1.6.0.)
+- Fixed: The examples were upgraded and fixed, and a `cherow` example was added.
+  (Not part of the npm package.)
+
+
 ### Version 1.6.0 (2017-06-26)
 
 - Added: Node.js 4 support. Thanks to Teddy Katz (@not-an-aardvark)!
