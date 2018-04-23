@@ -1,7 +1,7 @@
 "use strict";
 
 const ShiftCodegen = require("shift-codegen");
-const TokenStream = require("shift-codegen/dist/token_stream").TokenStream;
+const TokenStream = require("shift-codegen/dist/token-stream").TokenStream;
 const shiftFuzzer = require("shift-fuzzer");
 const shiftReducer = require("shift-reducer");
 const random = require("./random");

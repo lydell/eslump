@@ -361,12 +361,16 @@ function getLocation(error) {
       ? error.loc.line
       : typeof error.lineNumber === "number"
         ? error.lineNumber
-        : typeof error.line === "number" ? error.line : undefined;
+        : typeof error.line === "number"
+          ? error.line
+          : undefined;
 
   const column =
     error.loc && typeof error.loc.column === "number"
       ? error.loc.column + 1
-      : typeof error.column === "number" ? error.column : undefined;
+      : typeof error.column === "number"
+        ? error.column
+        : undefined;
 
   return { line, column };
 }
