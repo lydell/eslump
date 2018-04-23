@@ -36,7 +36,7 @@
     "optionator": "^0.8.2",
     "random-int": "^1.0.0",
     "random-item": "^1.0.0",
-    "shift-codegen": "^5.0.5",
+    "shift-codegen": "5.0.5",
     "shift-fuzzer": "^1.0.2",
     "shift-reducer": "^4.2.0"
   },

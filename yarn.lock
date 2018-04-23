@@ -982,7 +982,7 @@ shift-ast@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/shift-ast/-/shift-ast-4.0.0.tgz#1d4152a2add28644a52aeb2e0c87d8925d3d97ff"
 
-shift-codegen@^5.0.5:
+shift-codegen@5.0.5:
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/shift-codegen/-/shift-codegen-5.0.5.tgz#f6bd7a2161c5a4ec9446659e13f1fdd143c5c9c1"
   dependencies:
