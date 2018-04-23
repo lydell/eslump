@@ -1,3 +1,12 @@
+### Version 1.6.2 (2018-04-23)
+
+- Fixed: The dependency range for shift-codegen allowed newer versions, but
+  eslump relies on a non-public part of it which can change at any time – which
+  it did (see [#5]). The shift-codegen version is now updated and the changes
+  for the non-public stuff has been made. The version has also been locked down
+  to avoid this problem in the future. Thanks to Toru Nagashima (@mysticatea)!
+
+
 ### Version 1.6.1 (2018-03-12)
 
 - Fixed: The "Babel code frame" now shows up for parse errors again. (Regression
@@ -67,3 +76,6 @@
 ### Version 1.0.0 (2017-01-28)
 
 - Initial release.
+
+
+[#5]: https://github.com/lydell/eslump/issues/5
