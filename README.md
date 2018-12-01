@@ -24,7 +24,7 @@ You can also use parts of it as a Node.js module.
 
 ```
 Usage: eslump [options]
-   or: eslump TEST_MODULE OUTPUT_DIR [options]
+   or: eslump TEST_FILE OUTPUT_DIR [options]
 
 Options:
 
@@ -37,21 +37,19 @@ Options:
   -v, --version         Show version
 
 When no arguments are provided, random JavaScript is printed to stdout.
-Otherwise, TEST_MODULE is executed until an error occurs, or you kill the
+Otherwise, TEST_FILE is executed until an error occurs, or you kill the
 program. When an error occurs, the error is printed to stdout and files
 are written to OUTPUT_DIR:
 
   - random.js contains the random JavaScript that caused the error.
   - random.backup.js is a backup of random.js.
-  - reproductionData.json contains additional data defined by TEST_MODULE
+  - reproductionData.json contains additional data defined by TEST_FILE
     needed to reproduce the error caused by random.js, if any.
-  - Other files, if any, are defined by TEST_MODULE.
+  - Other files, if any, are defined by TEST_FILE.
 
 OUTPUT_DIR is created as with `mkdir -p` if non-existent.
 
-The value of TEST_MODULE is passed directly to the `require` function.
-
-For information on how to write a TEST_MODULE, see:
+For information on how to write a TEST_FILE, see:
 https://github.com/lydell/eslump#test-files
 
 Examples:
@@ -59,20 +57,18 @@ Examples:
   # See how "prettier" pretty-prints random JavaScript.
   $ eslump | prettier
 
-  # Run ./test.js and save the results in output/.
-  $ eslump ./test.js output/
+  # Run test.js and save the results in output/.
+  $ eslump test.js output/
 
   # Narrow down the needed JavaScript to produce the error.
   # output/random.backup.js is handy if you go too far.
   $ vim output/random.js
 
   # Reproduce the narrowed down case.
-  $ eslump ./test.js output/ --reproduce
+  $ eslump test.js output/ --reproduce
 ```
 
 ### Module
-
-### Overview
 
 ```js
 const {generateRandomJS} = require("eslump");
@@ -151,15 +147,15 @@ To run the Acorn example, for instance, follow these steps:
 
 1. Clone this repository.
 2. `npm ci`
-3. `eslump ./examples/acorn.js output`
+3. `eslump examples/acorn.js output`
 
 ## Test files
 
 ```
-$ eslump ./test.js output/
+$ eslump test.js output/
 ```
 
-Test files, `./test.js` in the above example, must follow this pattern:
+Test files, `test.js` in the above example, must follow this pattern:
 
 ```js
 module.exports = ({

@@ -10,27 +10,25 @@ const generateRandomJS = require("./codegen");
 const program = optionator({
   prepend: `
 Usage: eslump [options]
-   or: eslump TEST_MODULE OUTPUT_DIR [options]
+   or: eslump TEST_FILE OUTPUT_DIR [options]
 
 Options:
   `.trim(),
   append: `
 When no arguments are provided, random JavaScript is printed to stdout.
-Otherwise, TEST_MODULE is executed until an error occurs, or you kill the
+Otherwise, TEST_FILE is executed until an error occurs, or you kill the
 program. When an error occurs, the error is printed to stdout and files
 are written to OUTPUT_DIR:
 
   - random.js contains the random JavaScript that caused the error.
   - random.backup.js is a backup of random.js.
-  - reproductionData.json contains additional data defined by TEST_MODULE
+  - reproductionData.json contains additional data defined by TEST_FILE
     needed to reproduce the error caused by random.js, if any.
-  - Other files, if any, are defined by TEST_MODULE.
+  - Other files, if any, are defined by TEST_FILE.
 
 OUTPUT_DIR is created as with \`mkdir -p\` if non-existent.
 
-The value of TEST_MODULE is passed directly to the \`require\` function.
-
-For information on how to write a TEST_MODULE, see:
+For information on how to write a TEST_FILE, see:
 https://github.com/lydell/eslump#test-files
 
 Examples:
@@ -38,15 +36,15 @@ Examples:
   # See how "prettier" pretty-prints random JavaScript.
   $ eslump | prettier
 
-  # Run ./test.js and save the results in output/.
-  $ eslump ./test.js output/
+  # Run test.js and save the results in output/.
+  $ eslump test.js output/
 
   # Narrow down the needed JavaScript to produce the error.
   # output/random.backup.js is handy if you go too far.
   $ vim output/random.js
 
   # Reproduce the narrowed down case.
-  $ eslump ./test.js output/ --reproduce
+  $ eslump test.js output/ --reproduce
   `.trim(),
   options: [
     {
@@ -137,25 +135,25 @@ function run(input) {
     return { stdout: generateRandomJS(options), code: 0 };
   }
 
-  const [testModule, outputDir] = options._;
+  const [testFile, outputDir] = options._;
 
   let testFunction = undefined;
   try {
-    testFunction = require(testModule);
+    testFunction = require(path.resolve(testFile));
   } catch (error) {
     const message =
       error &&
       error.code === "MODULE_NOT_FOUND" &&
-      error.message.includes(testModule)
+      error.message.includes(testFile)
         ? error.message
-        : `Error when loading module '${testModule}':\n${printError(error)}`;
+        : `Error when loading module '${testFile}':\n${printError(error)}`;
     return { stderr: message, code: 1 };
   }
 
   if (typeof testFunction !== "function") {
     return {
       stderr: `Expected \`require(${JSON.stringify(
-        testModule
+        testFile
       )})\` to return a function, but got: ${testFunction}`,
       code: 1,
     };
