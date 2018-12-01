@@ -2,7 +2,7 @@
 
 const prettier = require("prettier");
 const testGenerator = require("./generator");
-const random = require("../random");
+const random = require("../src/random");
 
 function generate(code, { options }) {
   return prettier.format(code, options);

@@ -112,7 +112,7 @@ function run(input) {
   }
 
   if (options.version) {
-    return { stdout: require("./package.json").version, code: 0 };
+    return { stdout: require("../package.json").version, code: 0 };
   }
 
   const numPositional = options._.length;

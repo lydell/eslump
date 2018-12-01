@@ -15,15 +15,12 @@
     "esfuzz",
     "shift-fuzzer"
   ],
+  "main": "src/index.js",
   "bin": {
-    "eslump": "cli-runner.js"
+    "eslump": "src/cli-runner.js"
   },
   "files": [
-    "cli-program.js",
-    "cli-runner.js",
-    "codegen.js",
-    "index.js",
-    "random.js"
+    "src"
   ],
   "repository": "lydell/eslump",
   "scripts": {

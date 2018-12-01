@@ -5,7 +5,7 @@ process.env.FORCE_COLOR = "0";
 const fs = require("fs");
 const mkdirp = require("mkdirp");
 const rimraf = require("rimraf");
-const run = require("../cli-program");
+const run = require("../src/cli-program");
 const mock = require("./fixtures/mock");
 
 function loop(n, result) {

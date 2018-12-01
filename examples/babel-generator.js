@@ -3,7 +3,7 @@
 const babelGenerate = require("@babel/generator");
 const babelParser = require("@babel/parser");
 const testGenerator = require("./generator");
-const random = require("../random");
+const random = require("../src/random");
 
 function generate(code, options) {
   const ast = babelParser.parse(code, { sourceType: options.sourceType });

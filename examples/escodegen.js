@@ -3,7 +3,7 @@
 const escodegen = require("escodegen");
 const esprima = require("esprima");
 const testGenerator = require("./generator");
-const random = require("../random");
+const random = require("../src/random");
 
 function generate(code, { sourceType, options }) {
   const ast = esprima.parse(code, {

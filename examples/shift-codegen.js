@@ -7,7 +7,7 @@ const {
 } = require("shift-codegen");
 const shiftParser = require("shift-parser");
 const testGenerator = require("./generator");
-const random = require("../random");
+const random = require("../src/random");
 
 function generate(code, { sourceType, options }) {
   const parseFunction =
