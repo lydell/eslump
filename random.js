@@ -30,20 +30,20 @@ const whitespace = [
   "\u200a", // HAIR SPACE
   "\u202f", // NARROW NO-BREAK SPACE
   "\u205f", // MEDIUM MATHEMATICAL SPACE
-  "\u3000" // IDEOGRAPHIC SPACE
+  "\u3000", // IDEOGRAPHIC SPACE
 ];
 
 const lineTerminators = [
   "\n", // Line Feed
   "\r", // Carriage Return
-  "\r\n" // Line Feed + Carriage Return
+  "\r\n", // Line Feed + Carriage Return
   // Disabled since they make inspecting the random JS painful:
   // "\u2028", // LINE SEPARATOR
   // "\u2029" // PARAGRAPH SEPARATOR
 ];
 
-function randomArray(length, randomItem) {
-  return Array.from(Array(length)).map(() => randomItem());
+function randomArray(length, item) {
+  return Array.from({ length }, () => item());
 }
 
 function randomString(length, randomChar) {
@@ -65,9 +65,9 @@ function randomSingleLineComment() {
   return `//${contents}${newline}`;
 }
 
-function randomMultiLineComment(options) {
+function randomMultiLineComment({ allowNewlines = false } = {}) {
   const chars = whitespace.concat(
-    options && options.allowNewlines ? lineTerminators : [],
+    allowNewlines ? lineTerminators : [],
     letters
   );
   const contents = randomString(randomInt(20), () => randomItem(chars));
@@ -80,15 +80,16 @@ const insertCommentsChoices = [randomMultiLineComment];
 
 const insertCommentsChoicesWithNewlines = [
   randomSingleLineComment,
-  () => randomMultiLineComment({ allowNewlines: true })
+  () => randomMultiLineComment({ allowNewlines: true }),
 ];
 
-function insertComments(whitespaceString, options) {
-  const times = options && options.times === undefined ? 1 : options.times;
-  const choices =
-    options && options.allowNewlines
-      ? insertCommentsChoicesWithNewlines
-      : insertCommentsChoices;
+function insertComments(
+  whitespaceString,
+  { times = 1, allowNewlines = false } = {}
+) {
+  const choices = allowNewlines
+    ? insertCommentsChoicesWithNewlines
+    : insertCommentsChoices;
 
   const items = whitespaceString.match(insertCommentsTokens) || [];
 
@@ -111,5 +112,5 @@ module.exports = {
   whitespace: randomWhitespace,
   singleLineComment: randomSingleLineComment,
   multiLineComment: randomMultiLineComment,
-  insertComments
+  insertComments,
 };

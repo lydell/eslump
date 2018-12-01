@@ -5,12 +5,12 @@ const esprima = require("esprima");
 const testGenerator = require("./generator");
 const random = require("../random");
 
-function generate(code, options) {
+function generate(code, { sourceType, options }) {
   const ast = esprima.parse(code, {
-    sourceType: options.sourceType,
-    comments: true
+    sourceType,
+    comments: true,
   });
-  return escodegen.generate(ast, options.options);
+  return escodegen.generate(ast, options);
 }
 
 function generateRandomOptions() {
@@ -19,7 +19,7 @@ function generateRandomOptions() {
       indent: {
         style: random.string(random.int(10), random.whitespace),
         base: random.int(10),
-        adjustMultilineComment: random.bool()
+        adjustMultilineComment: random.bool(),
       },
       newline: random.lineTerminator(),
       space: random.string(random.int(4), random.whitespace),
@@ -32,9 +32,9 @@ function generateRandomOptions() {
       parentheses: random.bool(),
       semicolons: random.bool(),
       safeConcatenation: random.bool(),
-      preserveBlankLines: random.bool()
+      preserveBlankLines: random.bool(),
     },
-    comment: random.bool()
+    comment: random.bool(),
   };
 }
 

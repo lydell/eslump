@@ -1,22 +1,22 @@
 "use strict";
 
-const shiftCodegen = require("shift-codegen");
+const {
+  FormattedCodeGen,
+  MinimalCodeGen,
+  default: codegen,
+} = require("shift-codegen");
 const shiftParser = require("shift-parser");
 const testGenerator = require("./generator");
 const random = require("../random");
 
-function generate(code, generatorOptions) {
+function generate(code, { sourceType, options }) {
   const parseFunction =
-    generatorOptions.sourceType === "module"
-      ? shiftParser.parseModule
-      : shiftParser.parseScript;
+    sourceType === "module" ? shiftParser.parseModule : shiftParser.parseScript;
   const ast = parseFunction(code, { earlyErrors: false });
 
-  const generator = generatorOptions.options.minimal
-    ? shiftCodegen.MinimalCodeGen
-    : shiftCodegen.FormattedCodeGen;
+  const Generator = options.minimal ? MinimalCodeGen : FormattedCodeGen;
 
-  return shiftCodegen.default(ast, new generator());
+  return codegen(ast, new Generator());
 }
 
 function generateRandomOptions() {

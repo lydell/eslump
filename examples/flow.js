@@ -7,15 +7,13 @@ function parse(code) {
   const ast = flow.parse(code);
 
   if (ast.errors.length > 0) {
-    const message = ast.errors
+    const errorMessage = ast.errors
       .map(
-        messageInfo =>
-          `${messageInfo.message} (${messageInfo.loc.start.line}:${
-            messageInfo.loc.start.column
-          })`
+        ({ message, loc: { start } }) =>
+          `${message} (${start.line}:${start.column})`
       )
       .join("\n");
-    const error = new SyntaxError(message);
+    const error = new SyntaxError(errorMessage);
     error.loc = ast.errors[0].loc.start;
     throw error;
   }

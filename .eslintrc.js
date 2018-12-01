@@ -1,11 +1,21 @@
+"use strict";
+
+const baseRules = require("eslint-config-lydell");
+
 module.exports = {
-  extends: "eslint:recommended",
-  plugins: ["prettier"],
+  root: true,
+  plugins: ["import", "prettier"],
+  parserOptions: {
+    sourceType: "script",
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
   env: {
     es6: true,
-    node: true
+    node: true,
   },
-  rules: {
-    "prettier/prettier": "error"
-  }
+  rules: Object.assign({}, baseRules({ import: true }), {
+    "prettier/prettier": "error",
+  }),
 };

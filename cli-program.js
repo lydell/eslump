@@ -12,7 +12,7 @@ const program = optionator({
     "Usage: eslump [options]",
     "   or: eslump TEST_MODULE OUTPUT_DIR [options]",
     "",
-    "Options:"
+    "Options:",
   ].join("\n"),
   append: [
     "When no arguments are provided, random JavaScript is printed to stdout.",
@@ -46,63 +46,63 @@ const program = optionator({
     "  $ vim output/random.js",
     "",
     "  # Reproduce the narrowed down case.",
-    "  $ eslump ./test.js output/ --reproduce"
+    "  $ eslump ./test.js output/ --reproduce",
   ].join("\n"),
   options: [
     {
       option: "max-depth",
       type: "Number",
       default: "7",
-      description: "The maximum depth of the random JavaScript."
+      description: "The maximum depth of the random JavaScript.",
     },
     {
       option: "source-type",
       type: "String",
       enum: ["module", "script"],
       default: "module",
-      description: "Parsing mode."
+      description: "Parsing mode.",
     },
     {
       option: "whitespace",
       type: "Boolean",
-      description: "Randomize the whitespace in the random JavaScript."
+      description: "Randomize the whitespace in the random JavaScript.",
     },
     {
       option: "comments",
       type: "Boolean",
-      description: "Insert random comments into the random JavaScript."
+      description: "Insert random comments into the random JavaScript.",
     },
     {
       option: "reproduce",
       alias: "r",
       type: "Boolean",
-      description: "Reproduce a previous error using files in OUTPUT_DIR."
+      description: "Reproduce a previous error using files in OUTPUT_DIR.",
     },
     {
       option: "help",
       alias: "h",
       type: "Boolean",
       description: "Show help",
-      overrideRequired: true
+      overrideRequired: true,
     },
     {
       option: "version",
       alias: "v",
       type: "Boolean",
       description: "Show version",
-      overrideRequired: true
-    }
-  ]
+      overrideRequired: true,
+    },
+  ],
 });
 
 const FILES = {
   random: "random.js",
   randomBackup: "random.backup.js",
-  reproductionData: "reproductionData.json"
+  reproductionData: "reproductionData.json",
 };
 
 function run(input) {
-  let options;
+  let options = undefined;
   try {
     options = program.parse(input, { slice: 0 });
   } catch (error) {
@@ -122,14 +122,14 @@ function run(input) {
   if (!(numPositional === 0 || numPositional === 2)) {
     return {
       stderr: `Expected 0 or 2 arguments, but ${numPositional} given.`,
-      code: 1
+      code: 1,
     };
   }
 
   if (numPositional === 0 && options.reproduce !== undefined) {
     return {
       stderr: `The --reproduce flag cannot be used without arguments.`,
-      code: 1
+      code: 1,
     };
   }
 
@@ -137,10 +137,9 @@ function run(input) {
     return { stdout: generateRandomJS(options), code: 0 };
   }
 
-  const testModule = options._[0];
-  const outputDir = options._[1];
+  const [testModule, outputDir] = options._;
 
-  let testFunction;
+  let testFunction = undefined;
   try {
     testFunction = require(testModule);
   } catch (error) {
@@ -158,12 +157,12 @@ function run(input) {
       stderr: `Expected \`require(${JSON.stringify(
         testModule
       )})\` to return a function, but got: ${testFunction}`,
-      code: 1
+      code: 1,
     };
   }
 
-  let reproductionCode;
-  let reproductionData;
+  let reproductionCode = undefined;
+  let reproductionData = undefined;
   if (options.reproduce) {
     const codePath = path.join(outputDir, FILES.random);
     const dataPath = path.join(outputDir, FILES.reproductionData);
@@ -175,11 +174,11 @@ function run(input) {
         stderr: `Failed to read '${codePath}' for reproduction:\n${
           error.message
         }`,
-        code: 1
+        code: 1,
       };
     }
 
-    let reproductionDataString;
+    let reproductionDataString = undefined;
     try {
       reproductionDataString = fs.readFileSync(dataPath, "utf8");
     } catch (error) {
@@ -188,7 +187,7 @@ function run(input) {
           stderr: `Failed to read '${dataPath}' for reproduction:\n${
             error.message
           }`,
-          code: 1
+          code: 1,
         };
       }
     }
@@ -199,7 +198,7 @@ function run(input) {
       } catch (error) {
         return {
           stderr: `Failed to parse JSON in '${dataPath}':\n${error.message}`,
-          code: 1
+          code: 1,
         };
       }
     }
@@ -213,26 +212,26 @@ function run(input) {
       const testData = {
         code: options.reproduce ? reproductionCode : generateRandomJS(options),
         sourceType: options.sourceType,
-        reproductionData
+        reproductionData,
       };
 
-      let result;
+      let result = undefined;
       try {
         result = testFunction(testData);
       } catch (error) {
         const mainMessage = [
           `Attempt ${attemptNum}: The test function threw an unexpected error:`,
-          printError(error, testData.code)
+          printError(error, testData.code),
         ].join("\n");
         const extraMessage = writeFiles(outputDir, {
           code: testData.code,
-          reproduce: options.reproduce
+          reproduce: options.reproduce,
         });
         yield {
           message: extraMessage
             ? `${mainMessage}\n\n${extraMessage}`
             : mainMessage,
-          code: 1
+          code: 1,
         };
         break;
       }
@@ -240,25 +239,25 @@ function run(input) {
       if (result) {
         const mainMessage = [
           `Attempt ${attemptNum}: The test function returned an error:`,
-          printError(result.error, testData.code)
+          printError(result.error, testData.code),
         ].join("\n");
         const extraMessage = writeFiles(outputDir, {
           code: testData.code,
           result,
-          reproduce: options.reproduce
+          reproduce: options.reproduce,
         });
         yield {
           message: extraMessage
             ? `${mainMessage}\n\n${extraMessage}`
             : mainMessage,
-          code: 1
+          code: 1,
         };
         break;
       } else if (options.reproduce) {
         yield {
           message:
             "Failed to reproduce the error; the test function succeeded.",
-          code: 1
+          code: 1,
         };
         break;
       } else {
@@ -272,11 +271,10 @@ function run(input) {
   return { loop };
 }
 
-function writeFiles(outputDir, options) {
-  const code = options && options.code !== undefined ? options.code : null;
-  const result = (options && options.result) || {};
-  const reproduce = (options && options.reproduce) || false;
-
+function writeFiles(
+  outputDir,
+  { code = null, result = {}, reproduce = false } = {}
+) {
   try {
     mkdirp.sync(outputDir);
   } catch (error) {
@@ -294,7 +292,7 @@ function writeFiles(outputDir, options) {
     }
   }
 
-  let reproductionDataString;
+  let reproductionDataString = undefined;
   if ("reproductionData" in result && !reproduce) {
     try {
       reproductionDataString = JSON.stringify(result.reproductionData, null, 2);
@@ -327,21 +325,14 @@ function writeFiles(outputDir, options) {
   return message.length === 0 ? null : message.join("\n\n");
 }
 
-function printError(error, code) {
+function printError(error, code = "") {
   if (code && error) {
-    const errorLocation = getLocation(error);
-    if (typeof errorLocation.line === "number") {
+    const { line, column } = getLocation(error);
+    if (typeof line === "number") {
       const codeFrame = babelCodeFrame.codeFrameColumns(
         code,
-        {
-          start: {
-            line: errorLocation.line,
-            column: errorLocation.column
-          }
-        },
-        {
-          highlightCode: true
-        }
+        { start: { line, column } },
+        { highlightCode: true }
       );
       return `${error.stack}\n${codeFrame}`;
     }
@@ -360,17 +351,17 @@ function getLocation(error) {
     error.loc && typeof error.loc.line === "number"
       ? error.loc.line
       : typeof error.lineNumber === "number"
-        ? error.lineNumber
-        : typeof error.line === "number"
-          ? error.line
-          : undefined;
+      ? error.lineNumber
+      : typeof error.line === "number"
+      ? error.line
+      : undefined;
 
   const column =
     error.loc && typeof error.loc.column === "number"
       ? error.loc.column + 1
       : typeof error.column === "number"
-        ? error.column
-        : undefined;
+      ? error.column
+      : undefined;
 
   return { line, column };
 }

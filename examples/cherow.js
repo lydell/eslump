@@ -3,11 +3,9 @@
 const cherow = require("cherow");
 const testParser = require("./parser");
 
-function parse(code, generatorOptions) {
+function parse(code, { sourceType }) {
   const parseFunction =
-    generatorOptions.sourceType === "module"
-      ? cherow.parseModule
-      : cherow.parseScript;
+    sourceType === "module" ? cherow.parseModule : cherow.parseScript;
   return parseFunction(code);
 }
 

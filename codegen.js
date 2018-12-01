@@ -1,7 +1,7 @@
 "use strict";
 
-const ShiftCodegen = require("shift-codegen");
-const TokenStream = require("shift-codegen/dist/token-stream").TokenStream;
+const { FormattedCodeGen, Paren, Sep } = require("shift-codegen");
+const { TokenStream } = require("shift-codegen/dist/token-stream");
 const shiftFuzzer = require("shift-fuzzer");
 const shiftReducer = require("shift-reducer");
 const random = require("./random");
@@ -21,22 +21,19 @@ function randomTimes() {
 }
 
 class CustomTokenStream extends TokenStream {
-  constructor(options) {
+  constructor({ comments = false, whitespace = false } = {}) {
     super();
-    this._options = {
-      comments: options && options.comments,
-      whitespace: options && options.whitespace
-    };
+    this._options = { comments, whitespace };
     this._probabilities = {
       comments: Math.random(),
       whitespace: Math.random(),
-      semicolons: Math.random()
+      semicolons: Math.random(),
     };
     this._isASI = false;
   }
 
   put(tokenString, isRegExp) {
-    const optionalSemi = this.optionalSemi;
+    const { optionalSemi } = this;
 
     // Sometimes print semicolons, sometimes newlines.
     if (optionalSemi) {
@@ -74,7 +71,7 @@ class CustomTokenStream extends TokenStream {
         const choices = allowNewlines
           ? [
               random.whitespace,
-              () => random.lineTerminator().repeat(random.int(1, 2))
+              () => random.lineTerminator().repeat(random.int(1, 2)),
             ]
           : [random.whitespace];
         newTokenString = random.string(randomTimes(), () =>
@@ -90,7 +87,7 @@ class CustomTokenStream extends TokenStream {
       ) {
         newTokenString = random.insertComments(newTokenString, {
           times: randomTimes(),
-          allowNewlines
+          allowNewlines,
         });
       }
 
@@ -114,11 +111,11 @@ class CustomTokenStream extends TokenStream {
   }
 }
 
-class CustomFormattedCodeGen extends ShiftCodegen.FormattedCodeGen {
+class CustomFormattedCodeGen extends FormattedCodeGen {
   constructor() {
     super();
     this._probabilities = {
-      parentheses: Math.random()
+      parentheses: Math.random(),
     };
   }
 
@@ -139,7 +136,7 @@ class CustomFormattedCodeGen extends ShiftCodegen.FormattedCodeGen {
 
   // Remove parentheses in `const obj = {(a)}`;
   reduceObjectExpression(node, data) {
-    const properties = data.properties;
+    const { properties } = data;
     const newProperties = properties.map(removeParentheses);
     const newData = Object.assign({}, data, { properties: newProperties });
     return super.reduceObjectExpression(node, newData);
@@ -147,7 +144,7 @@ class CustomFormattedCodeGen extends ShiftCodegen.FormattedCodeGen {
 
   // Remove parentheses in `export {(a)}`;
   reduceExportLocalSpecifier(node, data) {
-    const name = data.name;
+    const { name } = data;
     const newName = removeParentheses(name);
     const newData = Object.assign({}, data, { name: newName });
     return super.reduceExportLocalSpecifier(node, newData);
@@ -155,7 +152,7 @@ class CustomFormattedCodeGen extends ShiftCodegen.FormattedCodeGen {
 }
 
 function removeParentheses(node) {
-  return node instanceof ShiftCodegen.Paren
+  return node instanceof Paren
     ? removeParentheses(node.expr.children[1])
     : node;
 }
@@ -163,7 +160,7 @@ function removeParentheses(node) {
 const overridablePrototypeMethodNames = new Set();
 
 for (
-  let prototype = CustomFormattedCodeGen.prototype;
+  let { prototype } = CustomFormattedCodeGen;
   prototype;
   prototype = Object.getPrototypeOf(prototype)
 ) {
@@ -174,15 +171,15 @@ for (
 overridablePrototypeMethodNames.forEach(methodName => {
   const originalMethod = CustomFormattedCodeGen.prototype[methodName];
 
-  CustomFormattedCodeGen.prototype[methodName] = function() {
-    let node = originalMethod.apply(this, arguments);
+  CustomFormattedCodeGen.prototype[methodName] = function(...args) {
+    let node = originalMethod.apply(this, args);
     if (Math.random() < this._probabilities.parentheses) {
       const times = randomTimes();
       for (let i = 0; i < times; i++) {
         node = this.paren(
           node,
-          ShiftCodegen.Sep.EXPRESSION_PAREN_BEFORE,
-          ShiftCodegen.Sep.EXPRESSION_PAREN_AFTER
+          Sep.EXPRESSION_PAREN_BEFORE,
+          Sep.EXPRESSION_PAREN_AFTER
         );
       }
     }
@@ -190,29 +187,29 @@ overridablePrototypeMethodNames.forEach(methodName => {
   };
 });
 
-function codeGen(ast, options) {
+function codeGen(ast, options = {}) {
   const generator = new CustomFormattedCodeGen();
-  const tokenStream = new CustomTokenStream(options || {});
+  const tokenStream = new CustomTokenStream(options);
   const rep = shiftReducer.default(generator, ast);
   rep.emit(tokenStream);
   return tokenStream.result;
 }
 
-function generateRandomJS(options) {
+function generateRandomJS(options = {}) {
   const fuzzer =
-    options && options.sourceType === "script"
+    options.sourceType === "script"
       ? shiftFuzzer.fuzzScript
       : shiftFuzzer.fuzzModule;
 
   const randomAST = fuzzer(
     new shiftFuzzer.FuzzerState({
-      maxDepth: options && options.maxDepth
+      maxDepth: options.maxDepth,
     })
   );
 
   return codeGen(randomAST, {
-    comments: options && options.comments,
-    whitespace: options && options.whitespace
+    comments: options.comments,
+    whitespace: options.whitespace,
   });
 }
 

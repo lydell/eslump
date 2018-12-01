@@ -2,14 +2,16 @@
 
 const expect = require("unexpected");
 
-module.exports = (generate, generateRandomOptions) => generatorOptions => {
-  const code = generatorOptions.code;
-  const sourceType = generatorOptions.sourceType;
-  const reproductionData = generatorOptions.reproductionData || null;
-  const isReproduction = reproductionData !== null;
-  const options = reproductionData
-    ? reproductionData.options
-    : generateRandomOptions({ sourceType });
+module.exports = (generate, generateRandomOptions) => ({
+  code,
+  sourceType,
+  reproductionData = undefined,
+}) => {
+  const isReproduction = reproductionData != null;
+  const options =
+    reproductionData != null
+      ? reproductionData.options
+      : generateRandomOptions({ sourceType });
   const generateData = { sourceType, options };
   const artifacts = {};
 
@@ -17,7 +19,7 @@ module.exports = (generate, generateRandomOptions) => generatorOptions => {
     return { error, reproductionData: { options }, artifacts };
   }
 
-  let generatedCode1;
+  let generatedCode1 = undefined;
   try {
     generatedCode1 = generate(code, generateData);
   } catch (error) {
@@ -27,13 +29,13 @@ module.exports = (generate, generateRandomOptions) => generatorOptions => {
       (String(error).includes("SyntaxError") ||
         (error && typeof error.column === "number"))
     ) {
-      return;
+      return undefined;
     }
     return makeErrorData(error);
   }
   artifacts["generated1.js"] = generatedCode1;
 
-  let generatedCode2;
+  let generatedCode2 = undefined;
   try {
     generatedCode2 = generate(generatedCode1, generateData);
   } catch (error) {
@@ -46,4 +48,6 @@ module.exports = (generate, generateRandomOptions) => generatorOptions => {
   } catch (error) {
     return makeErrorData(error);
   }
+
+  return undefined;
 };

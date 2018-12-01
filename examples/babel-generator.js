@@ -18,7 +18,7 @@ function generateRandomOptions() {
     compact: random.item([undefined, true, false, "auto"]),
     minified: random.bool(),
     concise: random.bool(),
-    jsonCompatibleStrings: random.bool()
+    jsonCompatibleStrings: random.bool(),
   };
 }
 
