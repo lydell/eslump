@@ -109,8 +109,8 @@ to get right in Prettier. Then, random parentheses and semicolons where
 requested, so I hacked that in as well.
 
 eslump has successfully found lots of little edge cases in Prettier, so it
-evidently works. But there are no tests. (I’ve just gone meta and fuzz-tested it
-using itself basically.)
+evidently works. But there aren’t many tests. (I’ve mostly gone meta and
+fuzz-tested it using itself basically.)
 
 From the beginning eslump was only ever intended to be a CLI tool, but other
 people have started to want to use eslump's code generation as an npm module, so

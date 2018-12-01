@@ -4,7 +4,7 @@ const baseRules = require("eslint-config-lydell");
 
 module.exports = {
   root: true,
-  plugins: ["import", "prettier"],
+  plugins: ["import", "jest", "prettier"],
   parserOptions: {
     sourceType: "script",
     ecmaFeatures: {
@@ -18,4 +18,11 @@ module.exports = {
   rules: Object.assign({}, baseRules({ import: true }), {
     "prettier/prettier": "error",
   }),
+  overrides: [
+    {
+      files: ["*.test.js"],
+      env: { jest: true },
+      rules: baseRules({ builtin: false, jest: true }),
+    },
+  ],
 };

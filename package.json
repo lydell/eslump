@@ -27,8 +27,11 @@
   ],
   "repository": "lydell/eslump",
   "scripts": {
-    "test": "eslint .",
-    "test-fix": "npm run test -- --fix"
+    "eslint": "eslint .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "jest": "jest",
+    "test": "npm run eslint && npm run jest",
+    "prepublishOnly": "npm test"
   },
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
@@ -50,10 +53,12 @@
     "eslint": "5.9.0",
     "eslint-config-lydell": "12.0.0",
     "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jest": "22.1.0",
     "eslint-plugin-prettier": "3.0.0",
     "espree": "^4.1.0",
     "esprima": "^4.0.1",
     "flow-parser": "^0.87.0",
+    "jest": "23.6.0",
     "prettier": "1.15.3",
     "shift-parser": "^5.2.4",
     "unexpected": "^10.39.2"
