@@ -26,6 +26,8 @@
   "scripts": {
     "eslint": "eslint .",
     "eslint:fix": "npm run eslint -- --fix",
+    "prettier": "prettier --write \"*.md\"",
+    "doctoc": "doctoc README.md",
     "jest": "jest",
     "test": "npm run eslint && npm run jest",
     "prepublishOnly": "npm test"
@@ -46,6 +48,7 @@
     "acorn": "6.0.4",
     "babel-generator": "6.26.1",
     "cherow": "1.6.8",
+    "doctoc": "1.4.0",
     "escodegen": "1.11.0",
     "eslint": "5.9.0",
     "eslint-config-lydell": "12.0.0",
