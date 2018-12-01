@@ -31,30 +31,29 @@
     "test-fix": "npm run test -- --fix"
   },
   "dependencies": {
-    "@babel/code-frame": "^7.0.0-beta.46",
+    "@babel/code-frame": "^7.0.0",
     "mkdirp": "^0.5.1",
     "optionator": "^0.8.2",
     "random-int": "^1.0.0",
     "random-item": "^1.0.0",
     "shift-codegen": "5.1.0",
     "shift-fuzzer": "^1.0.2",
-    "shift-reducer": "^4.3.0"
+    "shift-reducer": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/generator": "^7.0.0-beta.46",
-    "acorn": "^5.5.3",
+    "@babel/generator": "^7.1.6",
+    "acorn": "^6.0.4",
     "babel-generator": "^6.26.1",
     "babylon": "^7.0.0-beta.40",
-    "cherow": "^1.4.10",
-    "escodegen": "^1.9.1",
-    "eslint": "4.19.1",
-    "eslint-plugin-node": "6.0.1",
-    "eslint-plugin-prettier": "2.6.0",
-    "espree": "^3.5.4",
-    "esprima": "^4.0.0",
-    "flow-parser": "^0.70.0",
-    "prettier": "1.12.1",
+    "cherow": "^1.6.8",
+    "escodegen": "^1.11.0",
+    "eslint": "5.9.0",
+    "eslint-plugin-prettier": "3.0.0",
+    "espree": "^4.1.0",
+    "esprima": "^4.0.1",
+    "flow-parser": "^0.87.0",
+    "prettier": "1.15.3",
     "shift-parser": "^5.2.4",
-    "unexpected": "^10.37.5"
+    "unexpected": "^10.39.2"
   }
 }
