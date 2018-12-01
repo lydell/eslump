@@ -150,7 +150,7 @@ There are several examples in the [examples](examples) directory.
 To run the Acorn example, for instance, follow these steps:
 
 1. Clone this repository.
-2. `npm install` or (`yarn`)
+2. `npm ci`
 3. `eslump ./examples/acorn.js output`
 
 ## Test files
