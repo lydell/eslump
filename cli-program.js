@@ -351,7 +351,7 @@ function printError(error, code) {
 }
 
 function getLocation(error) {
-  // Acorn and Babylon has `.loc.line` (1-indexed) and `.loc.column`
+  // Acorn and @babel/parser has `.loc.line` (1-indexed) and `.loc.column`
   // (0-indexed). The Flow example is adjusted to this format.
   // Espree and Esprima has `.lineNumber` (1-indexed) and `.column` (1-indexed).
   // Shift-parser has `.line` (1-indexed) and `.column` (1-indexed).
@@ -360,17 +360,17 @@ function getLocation(error) {
     error.loc && typeof error.loc.line === "number"
       ? error.loc.line
       : typeof error.lineNumber === "number"
-      ? error.lineNumber
-      : typeof error.line === "number"
-      ? error.line
-      : undefined;
+        ? error.lineNumber
+        : typeof error.line === "number"
+          ? error.line
+          : undefined;
 
   const column =
     error.loc && typeof error.loc.column === "number"
       ? error.loc.column + 1
       : typeof error.column === "number"
-      ? error.column
-      : undefined;
+        ? error.column
+        : undefined;
 
   return { line, column };
 }

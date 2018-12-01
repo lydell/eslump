@@ -134,7 +134,7 @@ There are several examples in the [examples](examples) directory.
 
 - Parsers:
   - [acorn]
-  - [Babylon]
+  - [@babel/parser]
   - [cherow]
   - [espree]
   - [esprima]
@@ -147,11 +147,11 @@ There are several examples in the [examples](examples) directory.
   - [Prettier]
   - [shift-codegen]
 
-To run the Babylon example, for instance, follow these steps:
+To run the Acorn example, for instance, follow these steps:
 
 1. Clone this repository.
 2. `npm install` or (`yarn`)
-3. `eslump ./examples/babylon.js output`
+3. `eslump ./examples/acorn.js output`
 
 ## Test files
 
@@ -248,7 +248,7 @@ module.exports = ({
 
 [acorn]: https://github.com/ternjs/acorn
 [@babel/generator]: https://github.com/babel/babel/tree/master/packages/babel-generator
-[Babylon]: https://github.com/babel/babel/blob/master/packages/babylon
+[@babel/parser]: https://babeljs.io/docs/en/next/babel-parser.html
 [cherow]: https://github.com/cherow/cherow
 [escodegen]: https://github.com/estools/escodegen
 [esfuzz]: https://github.com/estools/esfuzz
