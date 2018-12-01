@@ -8,46 +8,46 @@ const path = require("path");
 const generateRandomJS = require("./codegen");
 
 const program = optionator({
-  prepend: [
-    "Usage: eslump [options]",
-    "   or: eslump TEST_MODULE OUTPUT_DIR [options]",
-    "",
-    "Options:",
-  ].join("\n"),
-  append: [
-    "When no arguments are provided, random JavaScript is printed to stdout.",
-    "Otherwise, TEST_MODULE is executed until an error occurs, or you kill the",
-    "program. When an error occurs, the error is printed to stdout and files",
-    "are written to OUTPUT_DIR:",
-    "",
-    "  - random.js contains the random JavaScript that caused the error.",
-    "  - random.backup.js is a backup of random.js.",
-    "  - reproductionData.json contains additional data defined by TEST_MODULE",
-    "    needed to reproduce the error caused by random.js, if any.",
-    "  - Other files, if any, are defined by TEST_MODULE.",
-    "",
-    "OUTPUT_DIR is created as with `mkdir -p` if non-existent.",
-    "",
-    "The value of TEST_MODULE is passed directly to the `require` function.",
-    "",
-    "For information on how to write a TEST_MODULE, see:",
-    "https://github.com/lydell/eslump#test-files",
-    "",
-    "Examples:",
-    "",
-    '  # See how "prettier" pretty-prints random JavaScript.',
-    "  $ eslump | prettier",
-    "",
-    "  # Run ./test.js and save the results in output/.",
-    "  $ eslump ./test.js output/",
-    "",
-    "  # Narrow down the needed JavaScript to produce the error.",
-    "  # output/random.backup.js is handy if you go too far.",
-    "  $ vim output/random.js",
-    "",
-    "  # Reproduce the narrowed down case.",
-    "  $ eslump ./test.js output/ --reproduce",
-  ].join("\n"),
+  prepend: `
+Usage: eslump [options]
+   or: eslump TEST_MODULE OUTPUT_DIR [options]
+
+Options:
+  `.trim(),
+  append: `
+When no arguments are provided, random JavaScript is printed to stdout.
+Otherwise, TEST_MODULE is executed until an error occurs, or you kill the
+program. When an error occurs, the error is printed to stdout and files
+are written to OUTPUT_DIR:
+
+  - random.js contains the random JavaScript that caused the error.
+  - random.backup.js is a backup of random.js.
+  - reproductionData.json contains additional data defined by TEST_MODULE
+    needed to reproduce the error caused by random.js, if any.
+  - Other files, if any, are defined by TEST_MODULE.
+
+OUTPUT_DIR is created as with \`mkdir -p\` if non-existent.
+
+The value of TEST_MODULE is passed directly to the \`require\` function.
+
+For information on how to write a TEST_MODULE, see:
+https://github.com/lydell/eslump#test-files
+
+Examples:
+
+  # See how "prettier" pretty-prints random JavaScript.
+  $ eslump | prettier
+
+  # Run ./test.js and save the results in output/.
+  $ eslump ./test.js output/
+
+  # Narrow down the needed JavaScript to produce the error.
+  # output/random.backup.js is handy if you go too far.
+  $ vim output/random.js
+
+  # Reproduce the narrowed down case.
+  $ eslump ./test.js output/ --reproduce
+  `.trim(),
   options: [
     {
       option: "max-depth",
@@ -219,10 +219,10 @@ function run(input) {
       try {
         result = testFunction(testData);
       } catch (error) {
-        const mainMessage = [
-          `Attempt ${attemptNum}: The test function threw an unexpected error:`,
-          printError(error, testData.code),
-        ].join("\n");
+        const mainMessage = `Attempt ${attemptNum}: The test function threw an unexpected error:\n${printError(
+          error,
+          testData.code
+        )}`;
         const extraMessage = writeFiles(outputDir, {
           code: testData.code,
           reproduce: options.reproduce,
@@ -237,10 +237,10 @@ function run(input) {
       }
 
       if (result) {
-        const mainMessage = [
-          `Attempt ${attemptNum}: The test function returned an error:`,
-          printError(result.error, testData.code),
-        ].join("\n");
+        const mainMessage = `Attempt ${attemptNum}: The test function returned an error:\n${printError(
+          result.error,
+          testData.code
+        )}`;
         const extraMessage = writeFiles(outputDir, {
           code: testData.code,
           result,
