@@ -1,4 +1,4 @@
-# eslump
+# eslump [![Build Status][travis-badge]][travis-link]
 
 Fuzz testing JavaScript parsers and suchlike programs.
 
@@ -256,3 +256,5 @@ module.exports = ({
 [shift-fuzzer]: https://github.com/shapesecurity/shift-fuzzer-js
 [shift-parser]: https://github.com/shapesecurity/shift-parser-js
 [typescript]: https://github.com/Microsoft/TypeScript
+[travis-badge]: https://travis-ci.com/lydell/eslump.svg?branch=master
+[travis-link]: https://travis-ci.com/lydell/eslump
