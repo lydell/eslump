@@ -137,8 +137,8 @@ function run(input) {
     return { stdout: generateRandomJS(options), code: 0 };
   }
 
-  const testModule = options._[0];
-  const outputDir = options._[1];
+  const testModule = getModuleName(options._[0]);
+  const outputDir = getModuleName(options._[1]);
 
   let testFunction;
   try {
@@ -377,6 +377,16 @@ function getLocation(error) {
 
 function indent(string) {
   return string.replace(/^/gm, "  ");
+}
+
+// if starts with '.', it is not a package.
+// e.g: "./cherow.js" => false; "cherow" => true;
+function isPkg(str) {
+  return str[0] !== ".";
+}
+
+function getModuleName(str) {
+  return isPkg(str) ? str : path.join(process.cwd(), str);
 }
 
 module.exports = run;
