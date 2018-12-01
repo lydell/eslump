@@ -124,7 +124,7 @@ function run(input) {
     };
   }
 
-  if (numPositional === 0 && options.reproduce !== undefined) {
+  if (numPositional === 0 && options.reproduce != null) {
     return {
       stderr: `The --reproduce flag cannot be used without arguments.`,
       code: 1,
@@ -145,16 +145,18 @@ function run(input) {
       error &&
       error.code === "MODULE_NOT_FOUND" &&
       error.message.includes(testFile)
-        ? error.message
-        : `Error when loading module '${testFile}':\n${printError(error)}`;
+        ? `Cannot find ${JSON.stringify(testFile)}`
+        : `Error when loading ${JSON.stringify(testFile)}:\n${printError(
+            error
+          )}`;
     return { stderr: message, code: 1 };
   }
 
   if (typeof testFunction !== "function") {
     return {
-      stderr: `Expected \`require(${JSON.stringify(
+      stderr: `Expected \`module.exports\` in ${JSON.stringify(
         testFile
-      )})\` to return a function, but got: ${testFunction}`,
+      )} to be a function, but got: ${testFunction}`,
       code: 1,
     };
   }
@@ -169,9 +171,9 @@ function run(input) {
       reproductionCode = fs.readFileSync(codePath, "utf8");
     } catch (error) {
       return {
-        stderr: `Failed to read '${codePath}' for reproduction:\n${
-          error.message
-        }`,
+        stderr: `Failed to read ${JSON.stringify(
+          codePath
+        )} for reproduction:\n${error.message}`,
         code: 1,
       };
     }
@@ -182,9 +184,9 @@ function run(input) {
     } catch (error) {
       if (error.code !== "ENOENT") {
         return {
-          stderr: `Failed to read '${dataPath}' for reproduction:\n${
-            error.message
-          }`,
+          stderr: `Failed to read ${JSON.stringify(
+            dataPath
+          )} for reproduction:\n${error.message}`,
           code: 1,
         };
       }
@@ -195,7 +197,9 @@ function run(input) {
         reproductionData = JSON.parse(reproductionDataString);
       } catch (error) {
         return {
-          stderr: `Failed to parse JSON in '${dataPath}':\n${error.message}`,
+          stderr: `Failed to parse JSON in ${JSON.stringify(dataPath)}:\n${
+            error.message
+          }`,
           code: 1,
         };
       }
@@ -271,12 +275,15 @@ function run(input) {
 
 function writeFiles(
   outputDir,
-  { code = null, result = {}, reproduce = false } = {}
+  // istanbul ignore next
+  { code = undefined, result = {}, reproduce = false } = {}
 ) {
   try {
     mkdirp.sync(outputDir);
   } catch (error) {
-    return `Failed to \`mkdir -p\` '${outputDir}':\n${error.message}`;
+    return `Failed to \`mkdir -p\` ${JSON.stringify(outputDir)}:\n${
+      error.message
+    }`;
   }
 
   const message = [];
@@ -286,7 +293,9 @@ function writeFiles(
     try {
       fs.writeFileSync(fullPath, content);
     } catch (error) {
-      message.push(`Failed to write write '${fullPath}':\n${error.message}`);
+      message.push(
+        `Failed to write write ${JSON.stringify(fullPath)}:\n${error.message}`
+      );
     }
   }
 
@@ -305,7 +314,7 @@ function writeFiles(
     }
   }
 
-  if (code !== null && !reproduce) {
+  if (code != null && !reproduce) {
     tryWrite(FILES.random, code);
     tryWrite(FILES.randomBackup, code);
   }
@@ -324,44 +333,43 @@ function writeFiles(
 }
 
 function printError(error, code = "") {
+  const stack =
+    process.env.NODE_ENV === "test"
+      ? `${error.name}: ${error.message}\n<stack trace>`
+      : /* istanbul ignore next */ error
+      ? error.stack
+      : "";
+
   if (code && error) {
-    const { line, column } = getLocation(error);
+    const [line, column] = getLocation(error);
     if (typeof line === "number") {
       const codeFrame = babelCodeFrame.codeFrameColumns(
         code,
         { start: { line, column } },
         { highlightCode: true }
       );
-      return `${error.stack}\n${codeFrame}`;
+      return `${stack}\n${codeFrame}`;
     }
   }
 
-  return error && error.stack ? error.stack : String(error);
+  return stack || /* istanbul ignore next */ String(error);
 }
 
 function getLocation(error) {
-  // Acorn and @babel/parser has `.loc.line` (1-indexed) and `.loc.column`
-  // (0-indexed). The Flow example is adjusted to this format.
-  // Espree and Esprima has `.lineNumber` (1-indexed) and `.column` (1-indexed).
-  // Shift-parser has `.line` (1-indexed) and `.column` (1-indexed).
-
-  const line =
-    error.loc && typeof error.loc.line === "number"
-      ? error.loc.line
-      : typeof error.lineNumber === "number"
-      ? error.lineNumber
+  return (
+    // Acorn and @babel/parser. The Flow example is adjusted to this format.
+    error.loc
+      ? [error.loc.line, error.loc.column + 1]
+      : // Espree and Esprima
+      typeof error.lineNumber === "number"
+      ? [error.lineNumber, error.column]
+      : // Shift-parser.
+      typeof error.parseErrorLine === "number"
+      ? [error.parseErrorLine, error.parseErrorColumn]
       : typeof error.line === "number"
-      ? error.line
-      : undefined;
-
-  const column =
-    error.loc && typeof error.loc.column === "number"
-      ? error.loc.column + 1
-      : typeof error.column === "number"
-      ? error.column
-      : undefined;
-
-  return { line, column };
+      ? [error.line, error.column + 1]
+      : [undefined, undefined]
+  );
 }
 
 function indent(string) {

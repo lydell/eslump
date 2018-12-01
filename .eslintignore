@@ -1,2 +1,5 @@
 !/.*
+/coverage/
 /output/
+/test-output/
+/test/fixtures/repro-parse-error/
