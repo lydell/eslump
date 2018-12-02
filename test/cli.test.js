@@ -23,54 +23,10 @@ beforeEach(() => {
 });
 
 test("--help", () => {
-  expect(run(["--help"])).toMatchInlineSnapshot(`
-Object {
-  "code": 0,
-  "stdout": "Usage: eslump [options]
-   or: eslump TEST_FILE OUTPUT_DIR [options]
-
-Options:
-
-  --max-depth Number    The maximum depth of the random JavaScript. - default: 7
-  --source-type String  Parsing mode. - either: module or script - default: module
-  --whitespace          Randomize the whitespace in the random JavaScript.
-  --comments            Insert random comments into the random JavaScript.
-  -r, --reproduce       Reproduce a previous error using files in OUTPUT_DIR.
-  -h, --help            Show help
-  -v, --version         Show version
-
-When no arguments are provided, random JavaScript is printed to stdout.
-Otherwise, TEST_FILE is executed until an error occurs, or you kill the
-program. When an error occurs, the error is printed to stdout and files
-are written to OUTPUT_DIR:
-
-  - random.js contains the random JavaScript that caused the error.
-  - random.backup.js is a backup of random.js.
-  - reproductionData.json contains additional data defined by TEST_FILE
-    needed to reproduce the error caused by random.js, if any.
-  - Other files, if any, are defined by TEST_FILE.
-
-OUTPUT_DIR is created as with \`mkdir -p\` if non-existent.
-
-For information on how to write a TEST_FILE, see:
-https://github.com/lydell/eslump#test-files
-
-Examples:
-
-  # See how \\"prettier\\" pretty-prints random JavaScript.
-  $ eslump | prettier
-
-  # Run test.js and save the results in output/.
-  $ eslump test.js output/
-
-  # Narrow down the needed JavaScript to produce the error.
-  # output/random.backup.js is handy if you go too far.
-  $ vim output/random.js
-
-  # Reproduce the narrowed down case.
-  $ eslump test.js output/ --reproduce",
-}
-`);
+  expect(run(["--help"])).toEqual({
+    code: 0,
+    stdout: expect.any(String),
+  });
 });
 
 test("--version", () => {
@@ -418,8 +374,13 @@ test("fails to mkdirp error output", () => {
   mock.mockImplementationOnce(() => ({
     error: new Error("test failed"),
   }));
-  expect(loop(2, run(["test/fixtures/mock.js", "test-output"])))
-    .toMatchInlineSnapshot(`
+  const result = loop(2, run(["test/fixtures/mock.js", "test-output"]));
+  expect(result).toHaveLength(2);
+  result[0].message = result[0].message.replace(
+    /(EEXIST)[\s\S]*/,
+    "$1: file already exists"
+  );
+  expect(result).toMatchInlineSnapshot(`
 Array [
   Object {
     "code": 1,
@@ -428,7 +389,7 @@ Error: test failed
 <stack trace>
 
 Failed to \`mkdir -p\` \\"test-output\\":
-EEXIST: file already exists, mkdir '/home/lydell/src/eslump/test-output'",
+EEXIST: file already exists",
   },
   undefined,
 ]
