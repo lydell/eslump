@@ -1,6 +1,6 @@
 {
   "name": "eslump",
-  "version": "1.6.2",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Simon Lydell",
   "description": "CLI tool for fuzz testing JavaScript parsers and suchlike programs.",

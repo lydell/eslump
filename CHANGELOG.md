@@ -1,3 +1,11 @@
+### Version 2.0.0 (2018-12-02)
+
+- Fixed: Test files provided to the CLI are now resolved relative to CWD as
+  expected.
+- Changed: Dropped support for Node.js 4.
+- Improved: Updated dependencies.
+- Improved: Added some tests.
+
 ### Version 1.6.2 (2018-04-23)
 
 - Fixed: The dependency range for shift-codegen allowed newer versions, but
