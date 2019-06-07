@@ -38,35 +38,35 @@ test("--version", () => {
 
 test("unknown flag", () => {
   expect(run(["--nope"])).toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Invalid option '--nope' - perhaps you meant '-r'?",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Invalid option '--nope' - perhaps you meant '-r'?",
+    }
+  `);
 });
 
 test("wrong amount of arguments", () => {
   expect(run(["test.js"])).toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Expected 0 or 2 arguments, but 1 given.",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Expected 0 or 2 arguments, but 1 given.",
+    }
+  `);
   expect(run(["test.js", "test-output", "extra"])).toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Expected 0 or 2 arguments, but 3 given.",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Expected 0 or 2 arguments, but 3 given.",
+    }
+  `);
 });
 
 test("invalid --reproduce", () => {
   expect(run(["--reproduce"])).toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "The --reproduce flag cannot be used without arguments.",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "The --reproduce flag cannot be used without arguments.",
+    }
+  `);
 });
 
 test("random JS as stdout", () => {
@@ -75,66 +75,66 @@ test("random JS as stdout", () => {
       stdout: expect.any(String),
     },
     `
-Object {
-  "code": 0,
-  "stdout": Any<String>,
-}
-`
+    Object {
+      "code": 0,
+      "stdout": Any<String>,
+    }
+  `
   );
 });
 
 test("missing test file", () => {
   expect(run(["test.js", "test-output"])).toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Cannot find \\"test.js\\"",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Cannot find \\"test.js\\"",
+    }
+  `);
 });
 
 test("throwing test file", () => {
   expect(run(["test/fixtures/throws.js", "test-output"]))
     .toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Error when loading \\"test/fixtures/throws.js\\":
-Error: startup error
-<stack trace>",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Error when loading \\"test/fixtures/throws.js\\":
+    Error: startup error
+    <stack trace>",
+    }
+  `);
 });
 
 test("bad require in test file", () => {
   expect(run(["test/fixtures/bad-require.js", "test-output"]))
     .toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Error when loading \\"test/fixtures/bad-require.js\\":
-Error: Cannot find module './nope' from 'bad-require.js'
-<stack trace>",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Error when loading \\"test/fixtures/bad-require.js\\":
+    Error: Cannot find module './nope' from 'bad-require.js'
+    <stack trace>",
+    }
+  `);
 });
 
 test("forgotten export", () => {
   expect(run(["test/fixtures/forgotten-export.js", "test-output"]))
     .toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Expected \`module.exports\` in \\"test/fixtures/forgotten-export.js\\" to be a function, but got: [object Object]",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Expected \`module.exports\` in \\"test/fixtures/forgotten-export.js\\" to be a function, but got: [object Object]",
+    }
+  `);
 });
 
 test("missing reproduction files", () => {
   expect(run(["test/fixtures/simple.js", "test-output", "--reproduce"]))
     .toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Failed to read \\"test-output/random.js\\" for reproduction:
-ENOENT: no such file or directory, open 'test-output/random.js'",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Failed to read \\"test-output/random.js\\" for reproduction:
+    ENOENT: no such file or directory, open 'test-output/random.js'",
+    }
+  `);
 });
 
 test("bad reproduction data file", () => {
@@ -145,12 +145,12 @@ test("bad reproduction data file", () => {
       "--reproduce",
     ])
   ).toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Failed to read \\"test/fixtures/repro-bad-data/reproductionData.json\\" for reproduction:
-EISDIR: illegal operation on a directory, read",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Failed to read \\"test/fixtures/repro-bad-data/reproductionData.json\\" for reproduction:
+    EISDIR: illegal operation on a directory, read",
+    }
+  `);
 });
 
 test("bad reproduction json", () => {
@@ -161,40 +161,40 @@ test("bad reproduction json", () => {
       "--reproduce",
     ])
   ).toMatchInlineSnapshot(`
-Object {
-  "code": 1,
-  "stderr": "Failed to parse JSON in \\"test/fixtures/repro-bad-json/reproductionData.json\\":
-Unexpected token i in JSON at position 0",
-}
-`);
+    Object {
+      "code": 1,
+      "stderr": "Failed to parse JSON in \\"test/fixtures/repro-bad-json/reproductionData.json\\":
+    Unexpected token i in JSON at position 0",
+    }
+  `);
 });
 
 test("simple loop", () => {
   expect(loop(3, run(["test/fixtures/simple.js", "test-output"])))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "message": "Attempt 1: Success",
-  },
-  Object {
-    "message": "Attempt 2: Success",
-  },
-  Object {
-    "message": "Attempt 3: Success",
-  },
-]
-`);
+    Array [
+      Object {
+        "message": "Attempt 1: Success",
+      },
+      Object {
+        "message": "Attempt 2: Success",
+      },
+      Object {
+        "message": "Attempt 3: Success",
+      },
+    ]
+  `);
 });
 
 test("test file success", () => {
   expect(loop(1, run(["test/fixtures/mock.js", "test-output"])))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "message": "Attempt 1: Success",
-  },
-]
-`);
+    Array [
+      Object {
+        "message": "Attempt 1: Success",
+      },
+    ]
+  `);
   expect(mock).toHaveBeenCalledTimes(1);
   expect(mock.mock.calls[0]).toHaveLength(1);
   expect(mock.mock.calls[0][0]).toMatchInlineSnapshot(
@@ -202,12 +202,12 @@ Array [
       code: expect.any(String),
     },
     `
-Object {
-  "code": Any<String>,
-  "reproductionData": undefined,
-  "sourceType": "module",
-}
-`
+    Object {
+      "code": Any<String>,
+      "reproductionData": undefined,
+      "sourceType": "module",
+    }
+  `
   );
 });
 
@@ -221,12 +221,12 @@ test("--source-type script", () => {
       code: expect.any(String),
     },
     `
-Object {
-  "code": Any<String>,
-  "reproductionData": undefined,
-  "sourceType": "script",
-}
-`
+    Object {
+      "code": Any<String>,
+      "reproductionData": undefined,
+      "sourceType": "script",
+    }
+  `
   );
 });
 
@@ -238,25 +238,25 @@ test("test file throws an error", () => {
     });
   expect(loop(3, run(["test/fixtures/mock.js", "test-output"])))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "message": "Attempt 1: Success",
-  },
-  Object {
-    "code": 1,
-    "message": "Attempt 2: The test function threw an unexpected error:
-Error: unexpected error
-<stack trace>",
-  },
-  undefined,
-]
-`);
+    Array [
+      Object {
+        "message": "Attempt 1: Success",
+      },
+      Object {
+        "code": 1,
+        "message": "Attempt 2: The test function threw an unexpected error:
+    Error: unexpected error
+    <stack trace>",
+      },
+      undefined,
+    ]
+  `);
   expect(fs.readdirSync("test-output")).toMatchInlineSnapshot(`
-Array [
-  "random.backup.js",
-  "random.js",
-]
-`);
+    Array [
+      "random.backup.js",
+      "random.js",
+    ]
+  `);
 });
 
 test("fails to write thrown error output", () => {
@@ -266,19 +266,19 @@ test("fails to write thrown error output", () => {
   });
   expect(loop(2, run(["test/fixtures/mock.js", "test-output"])))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function threw an unexpected error:
-Error: unexpected error
-<stack trace>
+    Array [
+      Object {
+        "code": 1,
+        "message": "Attempt 1: The test function threw an unexpected error:
+    Error: unexpected error
+    <stack trace>
 
-Failed to write write \\"test-output/random.js\\":
-EISDIR: illegal operation on a directory, open 'test-output/random.js'",
-  },
-  undefined,
-]
-`);
+    Failed to write write \\"test-output/random.js\\":
+    EISDIR: illegal operation on a directory, open 'test-output/random.js'",
+      },
+      undefined,
+    ]
+  `);
 });
 
 test("test file returns an error", () => {
@@ -289,25 +289,25 @@ test("test file returns an error", () => {
     }));
   expect(loop(3, run(["test/fixtures/mock.js", "test-output"])))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "message": "Attempt 1: Success",
-  },
-  Object {
-    "code": 1,
-    "message": "Attempt 2: The test function returned an error:
-Error: test failed
-<stack trace>",
-  },
-  undefined,
-]
-`);
+    Array [
+      Object {
+        "message": "Attempt 1: Success",
+      },
+      Object {
+        "code": 1,
+        "message": "Attempt 2: The test function returned an error:
+    Error: test failed
+    <stack trace>",
+      },
+      undefined,
+    ]
+  `);
   expect(fs.readdirSync("test-output")).toMatchInlineSnapshot(`
-Array [
-  "random.backup.js",
-  "random.js",
-]
-`);
+    Array [
+      "random.backup.js",
+      "random.js",
+    ]
+  `);
 });
 
 test("test file returns an error with extra data", () => {
@@ -323,28 +323,28 @@ test("test file returns an error with extra data", () => {
     }));
   expect(loop(3, run(["test/fixtures/mock.js", "test-output"])))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "message": "Attempt 1: Success",
-  },
-  Object {
-    "code": 1,
-    "message": "Attempt 2: The test function returned an error:
-Error: test failed
-<stack trace>",
-  },
-  undefined,
-]
-`);
+    Array [
+      Object {
+        "message": "Attempt 1: Success",
+      },
+      Object {
+        "code": 1,
+        "message": "Attempt 2: The test function returned an error:
+    Error: test failed
+    <stack trace>",
+      },
+      undefined,
+    ]
+  `);
   expect(fs.readdirSync("test-output")).toMatchInlineSnapshot(`
-Array [
-  "ast.json",
-  "one.js",
-  "random.backup.js",
-  "random.js",
-  "reproductionData.json",
-]
-`);
+    Array [
+      "ast.json",
+      "one.js",
+      "random.backup.js",
+      "random.js",
+      "reproductionData.json",
+    ]
+  `);
 });
 
 test("fails to write returned error output", () => {
@@ -354,19 +354,19 @@ test("fails to write returned error output", () => {
   }));
   expect(loop(2, run(["test/fixtures/mock.js", "test-output"])))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-Error: test failed
-<stack trace>
+    Array [
+      Object {
+        "code": 1,
+        "message": "Attempt 1: The test function returned an error:
+    Error: test failed
+    <stack trace>
 
-Failed to write write \\"test-output/random.js\\":
-EISDIR: illegal operation on a directory, open 'test-output/random.js'",
-  },
-  undefined,
-]
-`);
+    Failed to write write \\"test-output/random.js\\":
+    EISDIR: illegal operation on a directory, open 'test-output/random.js'",
+      },
+      undefined,
+    ]
+  `);
 });
 
 test("fails to mkdirp error output", () => {
@@ -381,19 +381,19 @@ test("fails to mkdirp error output", () => {
     "$1: file already exists"
   );
   expect(result).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-Error: test failed
-<stack trace>
+    Array [
+      Object {
+        "code": 1,
+        "message": "Attempt 1: The test function returned an error:
+    Error: test failed
+    <stack trace>
 
-Failed to \`mkdir -p\` \\"test-output\\":
-EEXIST: file already exists",
-  },
-  undefined,
-]
-`);
+    Failed to \`mkdir -p\` \\"test-output\\":
+    EEXIST: file already exists",
+      },
+      undefined,
+    ]
+  `);
 });
 
 test("fails to json stringify reproduction data", () => {
@@ -403,28 +403,42 @@ test("fails to json stringify reproduction data", () => {
     error: new Error("test failed"),
     reproductionData: circular,
   }));
-  expect(loop(2, run(["test/fixtures/mock.js", "test-output"])))
+  // Node.js 12 has a more detailed error message for circular objects than
+  // previous versions.
+  function fixMessage(result) {
+    return result.map(item =>
+      item == null
+        ? item
+        : Object.assign({}, item, {
+            message: item.message.replace(
+              /^.*circular structure.*(?:\n +.+)*/m,
+              "circular structure"
+            ),
+          })
+    );
+  }
+  expect(fixMessage(loop(2, run(["test/fixtures/mock.js", "test-output"]))))
     .toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-Error: test failed
-<stack trace>
+    Array [
+      Object {
+        "code": 1,
+        "message": "Attempt 1: The test function returned an error:
+    Error: test failed
+    <stack trace>
 
-Failed to run \`JSON.stringify\` on the returned reproductionData:
+    Failed to run \`JSON.stringify\` on the returned reproductionData:
 
-reproductionData:
+    reproductionData:
 
-  [object Object]
+      [object Object]
 
-Error:
+    Error:
 
-  Converting circular structure to JSON",
-  },
-  undefined,
-]
-`);
+    circular structure",
+      },
+      undefined,
+    ]
+  `);
 });
 
 test("--reproduce", () => {
@@ -437,27 +451,27 @@ test("--reproduce", () => {
       run(["test/fixtures/mock.js", "test/fixtures/repro", "--reproduce"])
     )
   ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-Error: reproduced
-<stack trace>",
-  },
-  undefined,
-]
-`);
+    Array [
+      Object {
+        "code": 1,
+        "message": "Attempt 1: The test function returned an error:
+    Error: reproduced
+    <stack trace>",
+      },
+      undefined,
+    ]
+  `);
   expect(mock).toHaveBeenCalledTimes(1);
   expect(mock.mock.calls[0]).toHaveLength(1);
   expect(mock.mock.calls[0][0]).toMatchInlineSnapshot(`
-Object {
-  "code": "// eslint-disable-next-line
-1 + 2;
-",
-  "reproductionData": undefined,
-  "sourceType": "module",
-}
-`);
+    Object {
+      "code": "// eslint-disable-next-line
+    1 + 2;
+    ",
+      "reproductionData": undefined,
+      "sourceType": "module",
+    }
+  `);
 });
 
 test("--reproduce with reproduction data", () => {
@@ -470,30 +484,30 @@ test("--reproduce with reproduction data", () => {
       run(["test/fixtures/mock.js", "test/fixtures/repro-data", "--reproduce"])
     )
   ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-Error: reproduced
-<stack trace>",
-  },
-  undefined,
-]
-`);
+    Array [
+      Object {
+        "code": 1,
+        "message": "Attempt 1: The test function returned an error:
+    Error: reproduced
+    <stack trace>",
+      },
+      undefined,
+    ]
+  `);
   expect(mock).toHaveBeenCalledTimes(1);
   expect(mock.mock.calls[0]).toHaveLength(1);
   expect(mock.mock.calls[0][0]).toMatchInlineSnapshot(`
-Object {
-  "code": "// eslint-disable-next-line
-1 + 2;
-",
-  "reproductionData": Object {
-    "one": 1,
-    "two": "two",
-  },
-  "sourceType": "module",
-}
-`);
+    Object {
+      "code": "// eslint-disable-next-line
+    1 + 2;
+    ",
+      "reproductionData": Object {
+        "one": 1,
+        "two": "two",
+      },
+      "sourceType": "module",
+    }
+  `);
 });
 
 test("--reproduce but no error", () => {
@@ -503,14 +517,14 @@ test("--reproduce but no error", () => {
       run(["test/fixtures/mock.js", "test/fixtures/repro", "--reproduce"])
     )
   ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Failed to reproduce the error; the test function succeeded.",
-  },
-  undefined,
-]
-`);
+    Array [
+      Object {
+        "code": 1,
+        "message": "Failed to reproduce the error; the test function succeeded.",
+      },
+      undefined,
+    ]
+  `);
 });
 
 describe("parse errors", () => {
@@ -521,21 +535,21 @@ describe("parse errors", () => {
         run(["examples/acorn.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-SyntaxError: Unexpected token (4:14)
-<stack trace>
-  2 | 
-  3 | function add(a, b) {
-> 4 |   return a ++ b;
-    |               ^
-  5 | }
-  6 | ",
-  },
-]
-`);
+      Array [
+        Object {
+          "code": 1,
+          "message": "Attempt 1: The test function returned an error:
+      SyntaxError: Unexpected token (4:14)
+      <stack trace>
+        2 | 
+        3 | function add(a, b) {
+      > 4 |   return a ++ b;
+          |               ^
+        5 | }
+        6 | ",
+        },
+      ]
+    `);
   });
 
   test("babel-parser", () => {
@@ -545,21 +559,21 @@ SyntaxError: Unexpected token (4:14)
         run(["examples/cherow.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-SyntaxError: Line 4, column 14: Unexpected token 'identifier'
-<stack trace>
-  2 | 
-  3 | function add(a, b) {
-> 4 |   return a ++ b;
-    |               ^
-  5 | }
-  6 | ",
-  },
-]
-`);
+      Array [
+        Object {
+          "code": 1,
+          "message": "Attempt 1: The test function returned an error:
+      SyntaxError: Line 4, column 14: Unexpected token 'identifier'
+      <stack trace>
+        2 | 
+        3 | function add(a, b) {
+      > 4 |   return a ++ b;
+          |               ^
+        5 | }
+        6 | ",
+        },
+      ]
+    `);
   });
 
   test("cherow", () => {
@@ -569,21 +583,21 @@ SyntaxError: Line 4, column 14: Unexpected token 'identifier'
         run(["examples/cherow.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-SyntaxError: Line 4, column 14: Unexpected token 'identifier'
-<stack trace>
-  2 | 
-  3 | function add(a, b) {
-> 4 |   return a ++ b;
-    |               ^
-  5 | }
-  6 | ",
-  },
-]
-`);
+      Array [
+        Object {
+          "code": 1,
+          "message": "Attempt 1: The test function returned an error:
+      SyntaxError: Line 4, column 14: Unexpected token 'identifier'
+      <stack trace>
+        2 | 
+        3 | function add(a, b) {
+      > 4 |   return a ++ b;
+          |               ^
+        5 | }
+        6 | ",
+        },
+      ]
+    `);
   });
 
   test("espree", () => {
@@ -593,21 +607,21 @@ SyntaxError: Line 4, column 14: Unexpected token 'identifier'
         run(["examples/espree.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-SyntaxError: Unexpected token b
-<stack trace>
-  2 | 
-  3 | function add(a, b) {
-> 4 |   return a ++ b;
-    |               ^
-  5 | }
-  6 | ",
-  },
-]
-`);
+      Array [
+        Object {
+          "code": 1,
+          "message": "Attempt 1: The test function returned an error:
+      SyntaxError: Unexpected token b
+      <stack trace>
+        2 | 
+        3 | function add(a, b) {
+      > 4 |   return a ++ b;
+          |               ^
+        5 | }
+        6 | ",
+        },
+      ]
+    `);
   });
 
   test("esprima", () => {
@@ -617,21 +631,21 @@ SyntaxError: Unexpected token b
         run(["examples/esprima.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-Error: Line 4: Unexpected identifier
-<stack trace>
-  2 | 
-  3 | function add(a, b) {
-> 4 |   return a ++ b;
-    |               ^
-  5 | }
-  6 | ",
-  },
-]
-`);
+      Array [
+        Object {
+          "code": 1,
+          "message": "Attempt 1: The test function returned an error:
+      Error: Line 4: Unexpected identifier
+      <stack trace>
+        2 | 
+        3 | function add(a, b) {
+      > 4 |   return a ++ b;
+          |               ^
+        5 | }
+        6 | ",
+        },
+      ]
+    `);
   });
 
   test("flow", () => {
@@ -641,21 +655,21 @@ Error: Line 4: Unexpected identifier
         run(["examples/flow.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-SyntaxError: Unexpected identifier (4:14)
-<stack trace>
-  2 | 
-  3 | function add(a, b) {
-> 4 |   return a ++ b;
-    |               ^
-  5 | }
-  6 | ",
-  },
-]
-`);
+      Array [
+        Object {
+          "code": 1,
+          "message": "Attempt 1: The test function returned an error:
+      SyntaxError: Unexpected identifier (4:14)
+      <stack trace>
+        2 | 
+        3 | function add(a, b) {
+      > 4 |   return a ++ b;
+          |               ^
+        5 | }
+        6 | ",
+        },
+      ]
+    `);
   });
 
   test("shift-parser", () => {
@@ -669,20 +683,20 @@ SyntaxError: Unexpected identifier (4:14)
         ])
       )
     ).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "code": 1,
-    "message": "Attempt 1: The test function returned an error:
-Error: [4:15]: Unexpected identifier
-<stack trace>
-  2 | 
-  3 | function add(a, b) {
-> 4 |   return a ++ b;
-    |               ^
-  5 | }
-  6 | ",
-  },
-]
-`);
+      Array [
+        Object {
+          "code": 1,
+          "message": "Attempt 1: The test function returned an error:
+      Error: [4:15]: Unexpected identifier
+      <stack trace>
+        2 | 
+        3 | function add(a, b) {
+      > 4 |   return a ++ b;
+          |               ^
+        5 | }
+        6 | ",
+        },
+      ]
+    `);
   });
 });
