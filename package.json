@@ -26,7 +26,7 @@
   "scripts": {
     "eslint": "eslint .",
     "eslint:fix": "npm run eslint -- --fix",
-    "prettier": "prettier --write \"*.md\"",
+    "prettier": "prettier --write .",
     "doctoc": "doctoc README.md",
     "jest": "jest",
     "test": "npm run eslint && npm run jest",

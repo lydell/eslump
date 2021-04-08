@@ -406,7 +406,7 @@ test("fails to json stringify reproduction data", () => {
   // Node.js 12 has a more detailed error message for circular objects than
   // previous versions.
   function fixMessage(result) {
-    return result.map(item =>
+    return result.map((item) =>
       item == null
         ? item
         : Object.assign({}, item, {

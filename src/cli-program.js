@@ -324,7 +324,7 @@ function writeFiles(
   }
 
   if (result.artifacts) {
-    Object.keys(result.artifacts).forEach(name => {
+    Object.keys(result.artifacts).forEach((name) => {
       tryWrite(name, String(result.artifacts[name]));
     });
   }

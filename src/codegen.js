@@ -165,13 +165,13 @@ for (
   prototype = Object.getPrototypeOf(prototype)
 ) {
   Object.getOwnPropertyNames(prototype)
-    .filter(methodName => PARENTHESES_WRAPPABLE_METHOD.test(methodName))
-    .forEach(methodName => overridablePrototypeMethodNames.add(methodName));
+    .filter((methodName) => PARENTHESES_WRAPPABLE_METHOD.test(methodName))
+    .forEach((methodName) => overridablePrototypeMethodNames.add(methodName));
 }
-overridablePrototypeMethodNames.forEach(methodName => {
+overridablePrototypeMethodNames.forEach((methodName) => {
   const originalMethod = CustomFormattedCodeGen.prototype[methodName];
 
-  CustomFormattedCodeGen.prototype[methodName] = function(...args) {
+  CustomFormattedCodeGen.prototype[methodName] = function (...args) {
     let node = originalMethod.apply(this, args);
     if (Math.random() < this._probabilities.parentheses) {
       const times = randomTimes();
