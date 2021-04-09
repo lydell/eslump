@@ -43,10 +43,9 @@
     "shift-reducer": "^6.0.0"
   },
   "devDependencies": {
-    "@babel/generator": "7.1.6",
-    "@babel/parser": "7.1.6",
+    "@babel/generator": "7.13.9",
+    "@babel/parser": "7.13.15",
     "acorn": "6.4.1",
-    "babel-generator": "6.26.1",
     "cherow": "1.6.8",
     "doctoc": "1.4.0",
     "escodegen": "1.11.0",
