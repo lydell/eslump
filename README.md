@@ -14,7 +14,6 @@ Inspired by [esfuzz]. Powered by [shift-fuzzer] and [shift-codegen].
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [CLI](#cli)
 - [Module](#module)
