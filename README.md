@@ -162,10 +162,10 @@ There are several examples in the [examples] directory.
 
   - [acorn]
   - [@babel/parser]
-  - [cherow]
   - [espree]
   - [esprima]
   - [flow]
+  - [meriyah]
   - [shift-parser]
 
 - Code generators:
@@ -298,7 +298,6 @@ You need [Node.js] 10 and npm 7.
 [@babel/generator]: https://github.com/babel/babel/tree/master/packages/babel-generator
 [@babel/parser]: https://babeljs.io/docs/en/next/babel-parser.html
 [acorn]: https://github.com/ternjs/acorn
-[cherow]: https://github.com/cherow/cherow
 [ci-badge]: https://github.com/lydell/eslump/actions/workflows/test.yml/badge.svg
 [ci-link]: https://github.com/lydell/eslump/actions
 [doctoc]: https://github.com/thlorenz/doctoc/
@@ -310,6 +309,7 @@ You need [Node.js] 10 and npm 7.
 [examples]: https://github.com/lydell/eslump/tree/master/examples
 [flow]: https://github.com/facebook/flow
 [jest]: https://jestjs.io/
+[meriyah]: https://github.com/meriyah/meriyah
 [node.js]: https://nodejs.org/en/
 [npm]: https://www.npmjs.com/
 [prettier]: https://github.com/prettier/prettier/

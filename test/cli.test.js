@@ -556,19 +556,19 @@ describe("parse errors", () => {
     expect(
       loop(
         1,
-        run(["examples/cherow.js", "test/fixtures/repro-parse-error", "-r"])
+        run(["examples/meriyah.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
       Array [
         Object {
           "code": 1,
           "message": "Attempt 1: The test function returned an error:
-      SyntaxError: Line 4, column 14: Unexpected token 'identifier'
+      SyntaxError: [4:15]: Unexpected token: 'identifier'
       <stack trace>
         2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
-          |               ^
+          |                ^
         5 | }
         6 |",
         },
@@ -576,23 +576,23 @@ describe("parse errors", () => {
     `);
   });
 
-  test("cherow", () => {
+  test("meriyah", () => {
     expect(
       loop(
         1,
-        run(["examples/cherow.js", "test/fixtures/repro-parse-error", "-r"])
+        run(["examples/meriyah.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
       Array [
         Object {
           "code": 1,
           "message": "Attempt 1: The test function returned an error:
-      SyntaxError: Line 4, column 14: Unexpected token 'identifier'
+      SyntaxError: [4:15]: Unexpected token: 'identifier'
       <stack trace>
         2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
-          |               ^
+          |                ^
         5 | }
         6 |",
         },
