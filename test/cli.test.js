@@ -659,7 +659,7 @@ describe("parse errors", () => {
         Object {
           "code": 1,
           "message": "Attempt 1: The test function returned an error:
-      SyntaxError: Unexpected identifier (4:14)
+      SyntaxError: Unexpected identifier, expected the token \`;\` (4:14)
       <stack trace>
         2 |
         3 | function add(a, b) {
