@@ -33,7 +33,7 @@
     "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "@babel/code-frame": "^7.0.0",
+    "@babel/code-frame": "^7.12.13",
     "mkdirp": "^0.5.1",
     "optionator": "^0.8.2",
     "random-int": "^1.0.0",
