@@ -61,6 +61,6 @@
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "shift-parser": "7.0.3",
-    "unexpected": "10.39.2"
+    "unexpected": "12.0.0"
   }
 }
