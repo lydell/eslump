@@ -35,7 +35,7 @@
   "dependencies": {
     "@babel/code-frame": "^7.12.13",
     "mkdirp": "^1.0.4",
-    "optionator": "^0.8.2",
+    "optionator": "^0.9.1",
     "random-int": "^1.0.0",
     "random-item": "^1.0.0",
     "shift-codegen": "5.1.0",
