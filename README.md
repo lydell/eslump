@@ -1,4 +1,4 @@
-# eslump [![Build Status][travis-badge]][travis-link]
+# eslump [![Build Status][ci-badge]][ci-link]
 
 Fuzz testing JavaScript parsers and suchlike programs.
 
@@ -271,7 +271,7 @@ module.exports = ({
 
 ## Development
 
-You need [Node.js] 10 and npm 6.
+You need [Node.js] 10 and npm 7.
 
 ### npm scripts
 
@@ -299,6 +299,8 @@ You need [Node.js] 10 and npm 6.
 [@babel/parser]: https://babeljs.io/docs/en/next/babel-parser.html
 [acorn]: https://github.com/ternjs/acorn
 [cherow]: https://github.com/cherow/cherow
+[ci-badge]: https://github.com/lydell/eslump/actions/workflows/test.yml/badge.svg
+[ci-link]: https://github.com/lydell/eslump/actions
 [doctoc]: https://github.com/thlorenz/doctoc/
 [escodegen]: https://github.com/estools/escodegen
 [esfuzz]: https://github.com/estools/esfuzz
@@ -314,7 +316,5 @@ You need [Node.js] 10 and npm 6.
 [shift-codegen]: https://github.com/shapesecurity/shift-codegen-js
 [shift-fuzzer]: https://github.com/shapesecurity/shift-fuzzer-js
 [shift-parser]: https://github.com/shapesecurity/shift-parser-js
-[travis-badge]: https://travis-ci.com/lydell/eslump.svg?branch=master
-[travis-link]: https://travis-ci.com/lydell/eslump
 [typescript]: https://github.com/Microsoft/TypeScript
 <!-- prettier-ignore-end -->

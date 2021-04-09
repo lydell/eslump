@@ -541,12 +541,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       SyntaxError: Unexpected token (4:14)
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -565,12 +565,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       SyntaxError: Line 4, column 14: Unexpected token 'identifier'
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -589,12 +589,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       SyntaxError: Line 4, column 14: Unexpected token 'identifier'
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -613,12 +613,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       SyntaxError: Unexpected token b
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -637,12 +637,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       Error: Line 4: Unexpected identifier
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -661,12 +661,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       SyntaxError: Unexpected identifier (4:14)
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -689,12 +689,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       Error: [4:15]: Unexpected identifier
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
