@@ -295,11 +295,11 @@ You need [Node.js] 10 and npm 7.
 
 <!-- prettier-ignore-start -->
 [@babel/generator]: https://github.com/babel/babel/tree/master/packages/babel-generator
-[@babel/parser]: https://babeljs.io/docs/en/next/babel-parser.html
-[acorn]: https://github.com/ternjs/acorn
+[@babel/parser]: https://babeljs.io/docs/en/babel-parser.html
+[acorn]: https://github.com/acornjs/acorn
 [ci-badge]: https://github.com/lydell/eslump/actions/workflows/test.yml/badge.svg
 [ci-link]: https://github.com/lydell/eslump/actions
-[doctoc]: https://github.com/thlorenz/doctoc/
+[doctoc]: https://github.com/thlorenz/doctoc
 [escodegen]: https://github.com/estools/escodegen
 [esfuzz]: https://github.com/estools/esfuzz
 [eslint]: https://eslint.org/
@@ -311,7 +311,7 @@ You need [Node.js] 10 and npm 7.
 [meriyah]: https://github.com/meriyah/meriyah
 [node.js]: https://nodejs.org/en/
 [npm]: https://www.npmjs.com/
-[prettier]: https://github.com/prettier/prettier/
+[prettier]: https://github.com/prettier/prettier
 [shift-codegen]: https://github.com/shapesecurity/shift-codegen-js
 [shift-fuzzer]: https://github.com/shapesecurity/shift-fuzzer-js
 [shift-parser]: https://github.com/shapesecurity/shift-parser-js
