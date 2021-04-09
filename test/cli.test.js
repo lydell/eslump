@@ -109,9 +109,7 @@ test("bad require in test file", () => {
     .toMatchInlineSnapshot(`
     Object {
       "code": 1,
-      "stderr": "Error when loading \\"test/fixtures/bad-require.js\\":
-    Error: Cannot find module './nope' from 'bad-require.js'
-    <stack trace>",
+      "stderr": "Cannot find \\"test/fixtures/bad-require.js\\"",
     }
   `);
 });
