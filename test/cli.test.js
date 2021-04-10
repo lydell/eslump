@@ -109,9 +109,7 @@ test("bad require in test file", () => {
     .toMatchInlineSnapshot(`
     Object {
       "code": 1,
-      "stderr": "Error when loading \\"test/fixtures/bad-require.js\\":
-    Error: Cannot find module './nope' from 'bad-require.js'
-    <stack trace>",
+      "stderr": "Cannot find \\"test/fixtures/bad-require.js\\"",
     }
   `);
 });
@@ -406,7 +404,7 @@ test("fails to json stringify reproduction data", () => {
   // Node.js 12 has a more detailed error message for circular objects than
   // previous versions.
   function fixMessage(result) {
-    return result.map(item =>
+    return result.map((item) =>
       item == null
         ? item
         : Object.assign({}, item, {
@@ -541,12 +539,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       SyntaxError: Unexpected token (4:14)
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -556,45 +554,45 @@ describe("parse errors", () => {
     expect(
       loop(
         1,
-        run(["examples/cherow.js", "test/fixtures/repro-parse-error", "-r"])
+        run(["examples/meriyah.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
       Array [
         Object {
           "code": 1,
           "message": "Attempt 1: The test function returned an error:
-      SyntaxError: Line 4, column 14: Unexpected token 'identifier'
+      SyntaxError: [4:15]: Unexpected token: 'identifier'
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
-          |               ^
+          |                ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
   });
 
-  test("cherow", () => {
+  test("meriyah", () => {
     expect(
       loop(
         1,
-        run(["examples/cherow.js", "test/fixtures/repro-parse-error", "-r"])
+        run(["examples/meriyah.js", "test/fixtures/repro-parse-error", "-r"])
       )
     ).toMatchInlineSnapshot(`
       Array [
         Object {
           "code": 1,
           "message": "Attempt 1: The test function returned an error:
-      SyntaxError: Line 4, column 14: Unexpected token 'identifier'
+      SyntaxError: [4:15]: Unexpected token: 'identifier'
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
-          |               ^
+          |                ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -613,12 +611,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       SyntaxError: Unexpected token b
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -637,12 +635,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       Error: Line 4: Unexpected identifier
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -659,14 +657,14 @@ describe("parse errors", () => {
         Object {
           "code": 1,
           "message": "Attempt 1: The test function returned an error:
-      SyntaxError: Unexpected identifier (4:14)
+      SyntaxError: Unexpected identifier, expected the token \`;\` (4:14)
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);
@@ -689,12 +687,12 @@ describe("parse errors", () => {
           "message": "Attempt 1: The test function returned an error:
       Error: [4:15]: Unexpected identifier
       <stack trace>
-        2 | 
+        2 |
         3 | function add(a, b) {
       > 4 |   return a ++ b;
           |               ^
         5 | }
-        6 | ",
+        6 |",
         },
       ]
     `);

@@ -3,4 +3,6 @@
 const acorn = require("acorn");
 const testParser = require("./parser");
 
-module.exports = testParser(acorn.parse);
+const parse = (input) => acorn.parse(input, { ecmaVersion: 2020 });
+
+module.exports = testParser(parse);

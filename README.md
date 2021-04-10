@@ -1,4 +1,4 @@
-# eslump [![Build Status][travis-badge]][travis-link]
+# eslump [![Build Status][ci-badge]][ci-link]
 
 Fuzz testing JavaScript parsers and suchlike programs.
 
@@ -13,7 +13,6 @@ Inspired by [esfuzz]. Powered by [shift-fuzzer] and [shift-codegen].
 <!-- prettier-ignore-start -->
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Installation](#installation)
 - [CLI](#cli)
@@ -162,10 +161,10 @@ There are several examples in the [examples] directory.
 
   - [acorn]
   - [@babel/parser]
-  - [cherow]
   - [espree]
   - [esprima]
   - [flow]
+  - [meriyah]
   - [shift-parser]
 
 - Code generators:
@@ -271,7 +270,7 @@ module.exports = ({
 
 ## Development
 
-You need [Node.js] 10 and npm 6.
+You need [Node.js] 10 and npm 7.
 
 ### npm scripts
 
@@ -296,10 +295,11 @@ You need [Node.js] 10 and npm 6.
 
 <!-- prettier-ignore-start -->
 [@babel/generator]: https://github.com/babel/babel/tree/master/packages/babel-generator
-[@babel/parser]: https://babeljs.io/docs/en/next/babel-parser.html
-[acorn]: https://github.com/ternjs/acorn
-[cherow]: https://github.com/cherow/cherow
-[doctoc]: https://github.com/thlorenz/doctoc/
+[@babel/parser]: https://babeljs.io/docs/en/babel-parser.html
+[acorn]: https://github.com/acornjs/acorn
+[ci-badge]: https://github.com/lydell/eslump/actions/workflows/test.yml/badge.svg
+[ci-link]: https://github.com/lydell/eslump/actions
+[doctoc]: https://github.com/thlorenz/doctoc
 [escodegen]: https://github.com/estools/escodegen
 [esfuzz]: https://github.com/estools/esfuzz
 [eslint]: https://eslint.org/
@@ -308,13 +308,12 @@ You need [Node.js] 10 and npm 6.
 [examples]: https://github.com/lydell/eslump/tree/master/examples
 [flow]: https://github.com/facebook/flow
 [jest]: https://jestjs.io/
+[meriyah]: https://github.com/meriyah/meriyah
 [node.js]: https://nodejs.org/en/
 [npm]: https://www.npmjs.com/
-[prettier]: https://github.com/prettier/prettier/
+[prettier]: https://github.com/prettier/prettier
 [shift-codegen]: https://github.com/shapesecurity/shift-codegen-js
 [shift-fuzzer]: https://github.com/shapesecurity/shift-fuzzer-js
 [shift-parser]: https://github.com/shapesecurity/shift-parser-js
-[travis-badge]: https://travis-ci.com/lydell/eslump.svg?branch=master
-[travis-link]: https://travis-ci.com/lydell/eslump
 [typescript]: https://github.com/Microsoft/TypeScript
 <!-- prettier-ignore-end -->
