@@ -27,16 +27,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key:
-            node_modules-${{ matrix.os }}-${{ matrix.node-version }}-${{
-            hashFiles('package-lock.json') }}
+          key: node_modules-${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('package-lock.json') }}
 
       - name: npm ci
         if: steps.cache-node_modules.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: ESLint
-        run: npx --no-install eslint .
+        run: npx --no-install eslint . --report-unused-disable-directives
 
       - name: Prettier
         run: npx --no-install prettier --check .

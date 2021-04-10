@@ -1,22 +1,37 @@
 "use strict";
 
-const baseRules = require("eslint-config-lydell");
-
 module.exports = {
   root: true,
-  plugins: ["import", "jest", "prettier"],
+  extends: ["eslint:recommended"],
   env: {
     es6: true,
     node: true,
   },
-  rules: Object.assign({}, baseRules({ import: true }), {
-    "prettier/prettier": "error",
-  }),
+  rules: {
+    "arrow-body-style": "error",
+    curly: "error",
+    "dot-notation": "error",
+    "no-shadow": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "object-shorthand": "error",
+    "one-var": ["error", "never"],
+    "prefer-arrow-callback": "error",
+    "prefer-destructuring": ["error", { array: false, object: true }],
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "prefer-template": "error",
+    eqeqeq: ["error", "always", { null: "ignore" }],
+    strict: "error",
+  },
   overrides: [
     {
       files: ["*.test.js"],
+      extends: ["plugin:jest/recommended", "plugin:jest/style"],
       env: { jest: true },
-      rules: baseRules({ builtin: false, jest: true }),
+      rules: {
+        "jest/valid-title": "off",
+      },
     },
   ],
 };
