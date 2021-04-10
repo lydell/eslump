@@ -1,3 +1,8 @@
+### Version 3.0.0 (2020-04-10)
+
+- Changed: Dropped support for Node.js 6 and Node.js 8.
+- Improved: Updated dependencies. Thanks to Stephen Wade (@stephenwade)!
+
 ### Version 2.0.0 (2018-12-02)
 
 - Fixed: Test files provided to the CLI are now resolved relative to CWD as expected.
