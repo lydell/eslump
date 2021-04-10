@@ -243,7 +243,7 @@ module.exports = ({
 [eslint]: https://eslint.org/
 [espree]: https://github.com/eslint/espree
 [esprima]: https://github.com/jquery/esprima
-[examples]: https://github.com/lydell/eslump/tree/master/examples
+[examples]: https://github.com/lydell/eslump/tree/main/examples
 [flow]: https://github.com/facebook/flow
 [jest]: https://jestjs.io/
 [meriyah]: https://github.com/meriyah/meriyah
