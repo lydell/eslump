@@ -79,7 +79,7 @@ https://github.com/lydell/eslump#test-files
 Examples:
 
   # See how "prettier" pretty-prints random JavaScript.
-  $ eslump | prettier
+  $ eslump | prettier --parser babel
 
   # Run test.js and save the results in output/.
   $ eslump test.js output/
