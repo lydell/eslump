@@ -4,7 +4,7 @@ module.exports = {
   root: true,
   extends: ["eslint:recommended"],
   parserOptions: {
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
   },
   env: {
     es6: true,
@@ -14,6 +14,7 @@ module.exports = {
     "arrow-body-style": "error",
     curly: "error",
     "dot-notation": "error",
+    "no-constant-condition": "error",
     "no-shadow": "error",
     "no-var": "error",
     "prefer-const": "error",
