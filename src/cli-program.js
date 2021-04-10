@@ -209,7 +209,6 @@ function run(input) {
   function* loop() {
     let attemptNum = 1;
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       const testData = {
         code: options.reproduce ? reproductionCode : generateRandomJS(options),
